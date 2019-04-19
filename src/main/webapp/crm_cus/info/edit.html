@@ -1,0 +1,215 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户开发计划</title>
+<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+<style>
+	body{ margin:0;
+		  padding:0}
+	.role{  margin:0px 30px 0px 0px; 
+			float:left; }
+	.right{
+		display:none;
+		}		
+	.overflow{
+		padding-left:30px;
+		display:block;}	
+</style>
+<script type="text/javascript">
+	function rightChange(id){
+			var div = document.getElementById(id);
+			div.className = "overflow";
+		}
+</script>
+</head>
+
+<body style="width:1366px">
+<div style="padding:5px;">
+  <div class="txt" style="padding-top:3px;" >当前位置：客户开发计划&nbsp;&gt;&nbsp;客户信息管理&nbsp;&gt;&nbsp;<a href="list.html">客户信息</a>&nbsp;&gt;&nbsp;编辑客户信息
+    <hr class="hr1" />
+  </div>
+  <div class="operation_button"> <a href="list.html" title="返回" >返回</a> </div>
+  <div class="out_bg">
+    <div class="in_bg" style=" height:470px;">
+     <div style="margin:100px 0px 0px 300px">
+     	 <form method="post" action="" onsubmit="return false;">
+         <table border="0" cellpadding="0" cellspacing="0" class="table_input txt">
+        <tr>
+          <td width="126">地区</td>
+          <td width="411">
+          	<!--  <select></select>  -->
+          	<input type="text" name="custRegion" id="custRegion"/>
+          	
+          </td>
+          <td width="126">客户经理</td>
+          <td width="442">
+          	<select id="select" name="custManagerId"></select>
+          </td>
+        </tr>
+        <tr>
+          <td>客户等级</td>
+          <td>
+          	<select id="level" name="custLevel"></select>
+          </td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td valign="top">客户满意度</td>
+          <td>
+          	<select id="satify" name="custSatisfy">
+          		<option value="1">1</option>
+          		<option value="2">2</option>
+          		<option value="3">3</option>
+          		<option value="4">4</option>
+          		<option value="5">5</option>	
+          	</select>
+          </td>
+          <td>客户信用等级</td>
+          <td>
+          	<select id="believe" name="custCredit"> 
+          		<option value="1">1</option>
+          		<option value="2">2</option>
+          		<option value="3">3</option>
+          		<option value="4">4</option>
+          		<option value="5">5</option>
+          	</select>
+          </td>
+        </tr>
+        
+        <tr>
+          <td valign="top">地址</td>
+          <td><input type="text" name="custAddr" id="custAddr"/></td>
+          <td>邮政编码</td>
+          <td><input type="text" name="custZip" id="custZip"/></td>
+        </tr>
+        
+        <tr>
+          <td valign="top">电话</td>
+          <td><input type="text" name="custTel" id="custTel"/></td>
+          <td>网址</td>
+          <td><input type="text" name="custWebsite" id="custWebsite"/></td>
+        </tr>
+      </table>
+      <input  type="submit" value="提交"/>
+         </form>
+     </div>
+    </div>
+  </div>
+</div>
+
+	<!--  客户经理加载 -->
+	<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/user/findId.do",
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					var infos = data.info;
+					$(infos).each(function(){
+						var html='<option value="'+this.usrId+'">'+this.usrName+'</option>';
+						$("#select").append($(html));
+					})
+					
+				}
+			}
+		})
+	})
+<!--  客户等级加载 -->
+	$(function(){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/dict/load.do",
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					var infos = data.info;
+					$(infos).each(function(){
+						var html='<option value="'+this.dictId+'">'+this.dictType+'</option>';
+						$("#level").append($(html));
+					})
+					
+				}
+			}
+		})
+	})
+</script>
+
+<!-- 绑定数据 -->
+<script type="text/javascript">
+	var param = window.location.search;
+	$(function(){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/cus/find.do"+param,
+			dataType:"json",
+			success:function(data){
+				if(data.code==1){
+					var infos = data.info;
+					$("#custRegion").val(infos.custRegion);
+					$("#custAddr").val(infos.custAddr);
+					$("#custZip").val(infos.custZip);
+					$("#custTel").val(infos.custTel);
+					$("#custWebsite").val(infos.custWebsite);
+					//绑定客户经理
+					var opts = document.getElementById("select");
+                    var value = infos.custManagerId;
+					for(var i=0;i<opts.options.length;i++){
+                      if(value==opts.options[i].value){
+				      	opts.options[i].selected = 'selected';
+                            }
+                    }
+					
+					//绑定客户等级
+					var opts = document.getElementById("level");
+                    var value = infos.custLevel;
+					for(var i=0;i<opts.options.length;i++){
+                      if(value==opts.options[i].value){
+				      	opts.options[i].selected = 'selected';
+                            }
+                    }
+					
+					//绑定客户满意度
+					var opts = document.getElementById("satify");
+                    var value = infos.custSatisfy;
+					for(var i=0;i<opts.options.length;i++){
+                      if(value==opts.options[i].value){
+				      	opts.options[i].selected = 'selected';
+                            }
+                    }
+					//客户信用等级
+					var opts = document.getElementById("believe");
+                    var value = infos.custCredit;
+					for(var i=0;i<opts.options.length;i++){
+                      if(value==opts.options[i].value){
+				      	opts.options[i].selected = 'selected';
+                            }
+                    }
+				}
+			}
+			
+		})
+	})
+</script>
+<script type="text/javascript">
+   var param = window.location.search;
+	$("form").submit(function(){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/cus/update.do"+param,
+			data:$("form").serialize(),
+			dataType:"json",
+			success:function(data){
+				if(data.code==1){
+					alert("修改成功");
+				}
+			}
+		})
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>基础数据</title>
+<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/javascript.js"></script>
+</head>
+
+<body>
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：基础数据&nbsp;&gt;&nbsp;数据字典管理&nbsp;&gt;&nbsp;<a href="dict.html">数据字典列表</a>&nbsp;&gt;&nbsp;新建数据字典
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<a href="role.html" >返回</a>
+			 <a href="javascript:update()"  >更新</a>
+		</div>
+		<div class="out_bg">
+			<div class="in_bg">
+				<form action="#">
+					<table border="0" cellpadding="0" cellspacing="0"
+						class="table_input txt">
+						<tr>
+							<td width="126" >编号</td>
+							<td width="411"><input type="text" id="roleId"
+								disabled="disabled" /></td>
+							<td>角色名</td>
+							<td><input type="text" name="roleName" id="roleName"/></td>
+						</tr>
+						<tr>
+							<td>角色描述</td>
+							<td><input type="text" name="roleDesc" id="roleDesc"/></td>
+							<td>角色状态</td>
+							<td>
+								<select name="roleFlag" id="select">
+									<option value="0">正常</option>
+									<option value="1">删除</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	<script type="text/javascript">
+	var param = window.location.search;
+		$(function(){
+			$.ajax({
+				type:"post",
+				url:"/crmsys/role/searchrole.do"+param,
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						var infos = data.info;
+						$("#roleId").val(infos.roleId);
+						$("#roleName").val(infos.roleName);
+						$("#roleDesc").val(infos.roleDesc);
+						var opts = document.getElementById("select");
+						var value = infos.roleFlag;
+						for(var i=0;i<opts.options.length;i++){
+							if(value==opts.options[i].value){
+							opts.options[i].selected = 'selected';
+							}
+						}
+						
+					}
+				}
+			})
+		})
+	</script>
+	<script type="text/javascript">
+		var param = window.location.search;
+		function update(){
+			$.ajax({
+				type:"post",
+				url:"/crmsys/role/update.do"+param,
+				data:$("form").serialize(),
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						alert("修改成功");
+					}else{
+						alert(data.info);
+					}
+				}
+				
+			})
+		}
+	</script>
+</body>
+</html>

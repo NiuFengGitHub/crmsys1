@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+
+	<!-- spring 和mybatis聚合之后，需要指定日志类 -->
+	<settings>
+		<setting name="logImpl" value="log4j" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
+	</settings>
+
+	<!-- 设置类型的别名 -->
+	<typeAliases>
+		<!-- type 类的包名+类名 alias 别名 -->
+		<typeAlias type="com.qf.entity.SysUser" alias="sysUser" />
+		<typeAlias type="com.qf.entity.SysRight" alias="sysRight" />
+	</typeAliases>
+	<plugins>
+		<!-- com.github.pagehelper为PageHelper类所在包名 -->
+		<plugin interceptor="com.github.pagehelper.PageInterceptor">
+			<!-- 使用下面的方式配置参数，后面会有所有的参数介绍 -->
+			<!--2.pagehelper 配置一下需要什么数据库 -->
+			<property name="helperDialect" value="mysql" />
+		</plugin>
+	</plugins>
+	
+</configuration>
+
+

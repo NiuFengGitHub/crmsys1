@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>基础数据</title>
+<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="../css/pagination.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+<script type="text/javascript"
+	src="../js/simpla.jquery.configuration.js"></script>
+<script type="text/javascript" src="../js/javascript.js"></script>
+<script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
+
+</head>
+
+<body>
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：基础数据&nbsp;&gt;&nbsp;查询产品信息
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<a href="javascript:search()" title="查询">查询</a>
+		</div>
+		<div class="search_input">
+			<ul class="txt">
+				<li>名称： <input type="text" size="30" name="prodName"
+					id="prodName" />
+				</li>
+				<li>型号： <input type="text" size="30" name="prodType"
+					id="prodType" />
+				</li>
+				<li>批次： <input type="text" size="30" name="prodBatch"
+					id="prodBatch" />
+				</li>
+			</ul>
+		</div>
+		<div>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				class="table_list">
+				<thead>
+					<tr>
+						<th width="5%"><input type="checkbox" class="check-all" /></th>
+						<th width="5%">编号</th>
+						<th width="20%">名称</th>
+						<th width="15%">型号</th>
+						<th width="15%">等级/批次</th>
+						<th width="5%">单位</th>
+						<th width="10%">单价(元)</th>
+						<th width="25%">备注</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="wrapper">
+			<div class="M-box"></div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript">	
+		$(function(){
+			loadData(1);
+		})
+		
+		function loadData(page){
+			$.ajax({
+				type:"get",
+				url:"/crmsys/product/list.do?page="+page,
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						$("tbody").empty();
+						var total = data.info.total;
+						//Math.ceil向上取整，Math.floor  向下取整
+						var totalPage =Math.ceil(total/5);//向上取整
+						var pno = page;
+						//总条数
+						var infos = data.info.rows;
+						$(infos).each(function(){
+							var html = '<tr>';
+							  html+='<td><input type="checkbox" /></td>';
+	         					html+='   <td>'+this.prodId+'</td>';
+	         					html+='   <td>'+this.prodName+'</td>';
+	         					html+='   <td>'+this.prodType+'</td>';
+	         					html+='   <td>'+this.prodBatch+'</td>';
+	         					html+='   <td>'+this.prodUnit+'</td>';
+	         					html+='   <td>'+this.prodPrice+'</td>';
+	         					html+='   <td>'+this.prodMemo+'</td>';
+	         					
+	         					html+='</tr>';
+	         					$("tbody").append($(html));
+	         					
+	      					  //分页设置
+	    	                    $('.M-box').pagination({  
+	    	                        pageCount: totalPage,  // 总页数
+	    	                        current:pno,//当前第几页  
+	    	                        jump: true,  // 是否显示跳转相关元素
+	    	                        jumpBtn: 'go', // 跳转按钮显示文字
+	    	                        coping: true,    //是否显示首页末页
+	    	                        homePage: '首页',  
+	    	                        endPage: '末页',  
+	    	                        prevContent: '<<',  // 上一页功能 显示文字信息
+	    	                        nextContent: '>>',  
+	    	                        callback:function(index){  
+	    	                            //$('.now').text(index.getCurrent());  
+	    	                            // 该回调函数用到的当前页是根据实际操作计算得到
+	    	                            loadData(index.getCurrent());//获取当前页  
+	    	                       } 
+	    	                    });
+						})		
+					}
+				}
+			
+			})
+		}
+</script>
+
+	<script type="text/javascript">
+function search(){
+	loadInfo(1);
+}
+
+function loadInfo(page){
+	$.ajax({
+		type:"post",
+		url:"/crmsys/product/search.do?page="+page,
+		data:{prodName:$("input[name='prodName']").val(),prodType:$("input[name='prodType']").val(),prodBatch:$("input[name='prodBatch']").val()},
+		dataType:"json",
+		success:function(data){
+			if(data.code == 1){
+				$("tbody").empty();
+				var total = data.info.total;
+				var totalPage = Math.ceil(total/5);
+				var pno = page;
+				var infos = data.info.rows;
+				$(infos).each(function(){
+					var html = '<tr>';
+					  html+='<td><input type="checkbox" /></td>';
+   					html+='   <td>'+this.prodId+'</td>';
+   					html+='   <td>'+this.prodName+'</td>';
+   					html+='   <td>'+this.prodType+'</td>';
+   					html+='   <td>'+this.prodBatch+'</td>';
+   					html+='   <td>'+this.prodUnit+'</td>';
+   					html+='   <td>'+this.prodPrice+'</td>';
+   					html+='   <td>'+this.prodMemo+'</td>';
+   					
+   					html+='</tr>';
+   					$("tbody").append($(html));
+   					
+					  //分页设置
+	                    $('.M-box').pagination({  
+	                        pageCount: totalPage,  // 总页数
+	                        current:pno,//当前第几页  
+	                        jump: true,  // 是否显示跳转相关元素
+	                        jumpBtn: 'go', // 跳转按钮显示文字
+	                        coping: true,    //是否显示首页末页
+	                        homePage: '首页',  
+	                        endPage: '末页',  
+	                        prevContent: '<<',  // 上一页功能 显示文字信息
+	                        nextContent: '>>',  
+	                        callback:function(index){  
+	                            //$('.now').text(index.getCurrent());  
+	                            // 该回调函数用到的当前页是根据实际操作计算得到
+	                            loadInfo(index.getCurrent());//获取当前页  
+	                       } 
+	                    });
+				})
+			}else{
+				alert(data.info);
+			}
+		}
+	})
+	
+}
+</script>
+</body>
+</html>

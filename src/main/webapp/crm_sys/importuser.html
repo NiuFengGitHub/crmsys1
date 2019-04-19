@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户开发计划列表</title>
+<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<link href="../css/pagination.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript"	src="../js/simpla.jquery.configuration.js"></script>
+<script type="text/javascript" src="../js/javascript.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"> </script>
+
+</head>
+
+<body>
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：系统管理&nbsp;&gt;&nbsp;用户管理
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<form action=""  method="post" enctype="multipart/form-data" onsubmit="return false;">
+				<input type="file" name="excelFile"/><br /> 
+				<input type="submit" value="导入" /> <br />
+			</form>
+
+		</div>
+		
+		<script type="text/javascript">
+		$("form").submit(function(){
+			$("form").ajaxSubmit({
+				type:"post",
+				url:"/crmsys/import.do",
+				data:$("form").serialize(),
+				dataType:"json",
+				success:function(data){
+					if(data.code==1){
+						alert("导入成功");
+					}else{
+						alert("倒入失败");
+					}
+				}
+			})
+		})
+		</script>
+</body>
+
+</html>
+
+
+
+
+
+

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.SalChanceMapper">
+  <resultMap id="BaseResultMap" type="com.qf.entity.SalChance">
+    <id column="chc_id" jdbcType="INTEGER" property="chcId" />
+    <result column="chc_source" jdbcType="VARCHAR" property="chcSource" />
+    <result column="chc_cusr_name" jdbcType="VARCHAR" property="chcCusrName" />
+    <result column="chc_title" jdbcType="VARCHAR" property="chcTitle" />
+    <result column="chc_rate" jdbcType="INTEGER" property="chcRate" />
+    <result column="chc_linkman" jdbcType="VARCHAR" property="chcLinkman" />
+    <result column="chc_tel" jdbcType="VARCHAR" property="chcTel" />
+    <result column="chc_mobile" jdbcType="VARCHAR" property="chcMobile" />
+    <result column="chc_desc" jdbcType="VARCHAR" property="chcDesc" />
+    <result column="chc_create_id" jdbcType="INTEGER" property="chcCreateId" />
+    <result column="chc_create_date" jdbcType="DATE" property="chcCreateDate" />
+    <result column="chc_due_id" jdbcType="INTEGER" property="chcDueId" />
+    <result column="chc_due_date" jdbcType="TIMESTAMP" property="chcDueDate" />
+    <result column="chc_status" jdbcType="INTEGER" property="chcStatus" />
+    <result column="chc_flag" jdbcType="INTEGER" property="chcFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    chc_id, chc_source, chc_cusr_name, chc_title, chc_rate, chc_linkman, chc_tel, chc_mobile, 
+    chc_desc, chc_create_id, chc_create_date, chc_due_id, chc_due_date, chc_status, chc_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sal_chance
+    where chc_id = #{chcId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sal_chance
+    where chc_id = #{chcId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qf.entity.SalChance">
+    insert into sal_chance (chc_id, chc_source, chc_cusr_name, 
+      chc_title, chc_rate, chc_linkman, 
+      chc_tel, chc_mobile, chc_desc, 
+      chc_create_id, chc_create_date, chc_due_id, 
+      chc_due_date, chc_status, chc_flag
+      )
+    values (#{chcId,jdbcType=INTEGER}, #{chcSource,jdbcType=VARCHAR}, #{chcCusrName,jdbcType=VARCHAR}, 
+      #{chcTitle,jdbcType=VARCHAR}, #{chcRate,jdbcType=INTEGER}, #{chcLinkman,jdbcType=VARCHAR}, 
+      #{chcTel,jdbcType=VARCHAR}, #{chcMobile,jdbcType=VARCHAR}, #{chcDesc,jdbcType=VARCHAR}, 
+      #{chcCreateId,jdbcType=INTEGER}, #{chcCreateDate,jdbcType=DATE}, #{chcDueId,jdbcType=INTEGER}, 
+      #{chcDueDate,jdbcType=TIMESTAMP}, #{chcStatus,jdbcType=INTEGER}, #{chcFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.entity.SalChance">
+    insert into sal_chance
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="chcId != null">
+        chc_id,
+      </if>
+      <if test="chcSource != null">
+        chc_source,
+      </if>
+      <if test="chcCusrName != null">
+        chc_cusr_name,
+      </if>
+      <if test="chcTitle != null">
+        chc_title,
+      </if>
+      <if test="chcRate != null">
+        chc_rate,
+      </if>
+      <if test="chcLinkman != null">
+        chc_linkman,
+      </if>
+      <if test="chcTel != null">
+        chc_tel,
+      </if>
+      <if test="chcMobile != null">
+        chc_mobile,
+      </if>
+      <if test="chcDesc != null">
+        chc_desc,
+      </if>
+      <if test="chcCreateId != null">
+        chc_create_id,
+      </if>
+      <if test="chcCreateDate != null">
+        chc_create_date,
+      </if>
+      <if test="chcDueId != null">
+        chc_due_id,
+      </if>
+      <if test="chcDueDate != null">
+        chc_due_date,
+      </if>
+      <if test="chcStatus != null">
+        chc_status,
+      </if>
+      <if test="chcFlag != null">
+        chc_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="chcId != null">
+        #{chcId,jdbcType=INTEGER},
+      </if>
+      <if test="chcSource != null">
+        #{chcSource,jdbcType=VARCHAR},
+      </if>
+      <if test="chcCusrName != null">
+        #{chcCusrName,jdbcType=VARCHAR},
+      </if>
+      <if test="chcTitle != null">
+        #{chcTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="chcRate != null">
+        #{chcRate,jdbcType=INTEGER},
+      </if>
+      <if test="chcLinkman != null">
+        #{chcLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="chcTel != null">
+        #{chcTel,jdbcType=VARCHAR},
+      </if>
+      <if test="chcMobile != null">
+        #{chcMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="chcDesc != null">
+        #{chcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="chcCreateId != null">
+        #{chcCreateId,jdbcType=INTEGER},
+      </if>
+      <if test="chcCreateDate != null">
+        #{chcCreateDate,jdbcType=DATE},
+      </if>
+      <if test="chcDueId != null">
+        #{chcDueId,jdbcType=INTEGER},
+      </if>
+      <if test="chcDueDate != null">
+        #{chcDueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chcStatus != null">
+        #{chcStatus,jdbcType=INTEGER},
+      </if>
+      <if test="chcFlag != null">
+        #{chcFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.entity.SalChance">
+    update sal_chance
+    <set>
+      <if test="chcSource != null">
+        chc_source = #{chcSource,jdbcType=VARCHAR},
+      </if>
+      <if test="chcCusrName != null">
+        chc_cusr_name = #{chcCusrName,jdbcType=VARCHAR},
+      </if>
+      <if test="chcTitle != null">
+        chc_title = #{chcTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="chcRate != null">
+        chc_rate = #{chcRate,jdbcType=INTEGER},
+      </if>
+      <if test="chcLinkman != null">
+        chc_linkman = #{chcLinkman,jdbcType=VARCHAR},
+      </if>
+      <if test="chcTel != null">
+        chc_tel = #{chcTel,jdbcType=VARCHAR},
+      </if>
+      <if test="chcMobile != null">
+        chc_mobile = #{chcMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="chcDesc != null">
+        chc_desc = #{chcDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="chcCreateId != null">
+        chc_create_id = #{chcCreateId,jdbcType=INTEGER},
+      </if>
+      <if test="chcCreateDate != null">
+        chc_create_date = #{chcCreateDate,jdbcType=DATE},
+      </if>
+      <if test="chcDueId != null">
+        chc_due_id = #{chcDueId,jdbcType=INTEGER},
+      </if>
+      <if test="chcDueDate != null">
+        chc_due_date = #{chcDueDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="chcStatus != null">
+        chc_status = #{chcStatus,jdbcType=INTEGER},
+      </if>
+      <if test="chcFlag != null">
+        chc_flag = #{chcFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where chc_id = #{chcId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.entity.SalChance">
+    update sal_chance
+    set chc_source = #{chcSource,jdbcType=VARCHAR},
+      chc_cusr_name = #{chcCusrName,jdbcType=VARCHAR},
+      chc_title = #{chcTitle,jdbcType=VARCHAR},
+      chc_rate = #{chcRate,jdbcType=INTEGER},
+      chc_linkman = #{chcLinkman,jdbcType=VARCHAR},
+      chc_tel = #{chcTel,jdbcType=VARCHAR},
+      chc_mobile = #{chcMobile,jdbcType=VARCHAR},
+      chc_desc = #{chcDesc,jdbcType=VARCHAR},
+      chc_create_id = #{chcCreateId,jdbcType=INTEGER},
+      chc_create_date = #{chcCreateDate,jdbcType=DATE},
+      chc_due_id = #{chcDueId,jdbcType=INTEGER},
+      chc_due_date = #{chcDueDate,jdbcType=TIMESTAMP},
+      chc_status = #{chcStatus,jdbcType=INTEGER},
+      chc_flag = #{chcFlag,jdbcType=INTEGER}
+    where chc_id = #{chcId,jdbcType=INTEGER}
+  </update>
+  <!-- 查询所有 -->
+  <select id="findAll" resultType="com.qf.entity.SalChance">
+  	select * from sal_chance
+  </select>
+  
+  <delete id="delete" parameterType="int">
+  	update sal_chance set chc_flag = 0 where chc_id = #{chcId}
+  </delete>
+  
+  <select id="find" parameterType="map" resultType="com.qf.entity.SalChance">
+  select * from sal_chance
+  <where>
+	  	<if test="chcCusrName!=null">
+	  	and chc_cusr_name like '%${chcCusrName}%'
+	  	</if>
+	  	<if test="chcLinkman!=null">
+	  	and chc_linkman like '%${chcLinkman}%'
+	  	</if>
+	  	<if test="chcCreateDate!=null">
+	  	and DATEDIFF(chc_create_date,#{chcCreateDate})=0  
+	  	</if>
+  </where>
+  </select>
+  
+</mapper>

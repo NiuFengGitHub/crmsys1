@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.CstLinkmanMapper">
+  <resultMap id="BaseResultMap" type="com.qf.entity.CstLinkman">
+    <id column="lkm_id" jdbcType="INTEGER" property="lkmId" />
+    <result column="lkm_cust_no" jdbcType="VARCHAR" property="lkmCustNo" />
+    <result column="lkm_name" jdbcType="VARCHAR" property="lkmName" />
+    <result column="lkm_sex" jdbcType="VARCHAR" property="lkmSex" />
+    <result column="lkm_position" jdbcType="VARCHAR" property="lkmPosition" />
+    <result column="lkm_tel" jdbcType="VARCHAR" property="lkmTel" />
+    <result column="lkm_mobile" jdbcType="VARCHAR" property="lkmMobile" />
+    <result column="lkm_memo" jdbcType="VARCHAR" property="lkmMemo" />
+    <result column="lkm_flag" jdbcType="INTEGER" property="lkmFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    lkm_id, lkm_cust_no, lkm_name, lkm_sex, lkm_position, lkm_tel, lkm_mobile, lkm_memo, 
+    lkm_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cst_linkman
+    where lkm_id = #{lkmId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cst_linkman
+    where lkm_id = #{lkmId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qf.entity.CstLinkman">
+    insert into cst_linkman (lkm_id, lkm_cust_no, lkm_name, 
+      lkm_sex, lkm_position, lkm_tel, 
+      lkm_mobile, lkm_memo, lkm_flag
+      )
+    values (#{lkmId,jdbcType=INTEGER}, #{lkmCustNo,jdbcType=VARCHAR}, #{lkmName,jdbcType=VARCHAR}, 
+      #{lkmSex,jdbcType=VARCHAR}, #{lkmPosition,jdbcType=VARCHAR}, #{lkmTel,jdbcType=VARCHAR}, 
+      #{lkmMobile,jdbcType=VARCHAR}, #{lkmMemo,jdbcType=VARCHAR}, #{lkmFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.entity.CstLinkman">
+    insert into cst_linkman
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="lkmId != null">
+        lkm_id,
+      </if>
+      <if test="lkmCustNo != null">
+        lkm_cust_no,
+      </if>
+      <if test="lkmName != null">
+        lkm_name,
+      </if>
+      <if test="lkmSex != null">
+        lkm_sex,
+      </if>
+      <if test="lkmPosition != null">
+        lkm_position,
+      </if>
+      <if test="lkmTel != null">
+        lkm_tel,
+      </if>
+      <if test="lkmMobile != null">
+        lkm_mobile,
+      </if>
+      <if test="lkmMemo != null">
+        lkm_memo,
+      </if>
+      <if test="lkmFlag != null">
+        lkm_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="lkmId != null">
+        #{lkmId,jdbcType=INTEGER},
+      </if>
+      <if test="lkmCustNo != null">
+        #{lkmCustNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmName != null">
+        #{lkmName,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmSex != null">
+        #{lkmSex,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmPosition != null">
+        #{lkmPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmTel != null">
+        #{lkmTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMobile != null">
+        #{lkmMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMemo != null">
+        #{lkmMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmFlag != null">
+        #{lkmFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.entity.CstLinkman">
+    update cst_linkman
+    <set>
+      <if test="lkmCustNo != null">
+        lkm_cust_no = #{lkmCustNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmName != null">
+        lkm_name = #{lkmName,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmSex != null">
+        lkm_sex = #{lkmSex,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmPosition != null">
+        lkm_position = #{lkmPosition,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmTel != null">
+        lkm_tel = #{lkmTel,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMobile != null">
+        lkm_mobile = #{lkmMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmMemo != null">
+        lkm_memo = #{lkmMemo,jdbcType=VARCHAR},
+      </if>
+      <if test="lkmFlag != null">
+        lkm_flag = #{lkmFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where lkm_id = #{lkmId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.entity.CstLinkman">
+    update cst_linkman
+    set lkm_cust_no = #{lkmCustNo,jdbcType=VARCHAR},
+      lkm_name = #{lkmName,jdbcType=VARCHAR},
+      lkm_sex = #{lkmSex,jdbcType=VARCHAR},
+      lkm_position = #{lkmPosition,jdbcType=VARCHAR},
+      lkm_tel = #{lkmTel,jdbcType=VARCHAR},
+      lkm_mobile = #{lkmMobile,jdbcType=VARCHAR},
+      lkm_memo = #{lkmMemo,jdbcType=VARCHAR},
+      lkm_flag = #{lkmFlag,jdbcType=INTEGER}
+    where lkm_id = #{lkmId,jdbcType=INTEGER}
+  </update>
+
+  <select id="findAll" parameterType="string" resultType="com.qf.entity.CstLinkman">
+    select * from cst_linkman where lkm_cust_no=#{no}
+
+  </select>
+</mapper>

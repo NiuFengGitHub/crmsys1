@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>基础数据</title>
+<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/javascript.js"></script>
+<script type="text/javascript" src="../js/jquery-1.12.4.js"></script>
+</head>
+
+<body>
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：基础数据&nbsp;&gt;&nbsp;数据字典管理&nbsp;&gt;&nbsp;<a href="dict.html">数据字典列表</a>&nbsp;&gt;&nbsp;编辑数据字典
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<a href="dict.html" title="返回" >返回</a>
+			 <a href="javascript:update()" title="保存">保存</a>
+		</div>
+		<div class="out_bg">
+			<div class="in_bg">
+				<table border="0" cellpadding="0" cellspacing="0"
+					class="table_input txt">
+					<tr>
+						<td width="126" >编号</td>
+						<td width="411" id="dictId" name="dictId">4</td>
+					</tr>
+					<tr>
+						<td width="126">类别</td>
+						<td width="442"><input type="text" id="dictType" name="dictType" /></td>
+						<td>条目</td>
+						<td><input type="text" id="dictItem" name="dictItem"/></td>
+					</tr>
+					<tr>
+						<td>是否可编辑</td>
+						<td><input type="checkbox" id="checkbox"   checked="checked" name="dictIsEditable"/></td>
+						<td>&nbsp;</td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+	var param = window.location.search;
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"/crmsys/dict/search.do"+param,
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					var infos = data.info;
+					$("#dictId").html(infos.dictId);
+					$("#dictType").val(infos.dictType);
+					$("#dictItem").val(infos.dictItem);
+					
+				}else{
+					alert(data.info);
+				}
+			}
+		})
+	})
+	</script>
+	<!-- 修改的ajax -->
+	<script type="text/javascript">
+	var param = window.location.search;
+		function update(){
+			var value =$('#checkbox').is(':checked');
+			var judge ;
+			if(value){
+				judge = 1;
+			}else{
+				judge=0;
+			}
+			$.ajax({
+				type:"get",
+				url:"/crmsys/dict/update.do"+param,
+				data:{dictType:$("input[name='dictType']").val(),dictItem:$("input[name='dictItem']").val(),dictIsEditable:judge},
+				dataType:"json",
+				success:function(data){
+					if(data.code ==1){
+						alert("修改成功");
+						
+					}else{
+						alert(data.info);
+					}
+				}
+			})
+			
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>服务管理</title>
+<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/javascript.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+</head>
+<body>
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：系统管理&nbsp;&gt;&nbsp;用户管理>用户更新
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<a href="#" title="保存" onclick="javascript:update()">更新</a>
+			<a href="user.html"  >返回</a>
+			
+		</div>
+		<div class="out_bg">
+			<div class="in_bg">
+				<table border="0" cellpadding="0" cellspacing="0"
+					class="table_input txt">
+					<tr>
+						<td width="126">编号</td>
+						<td width="411"><input type="text" id="usrId"
+							disabled="disabled" /></td>
+					</tr>
+					<tr>
+						<td>用户名称</td>
+						<td><input type="text" name="usrName" id="usrName" /></td>
+						<td>角色</td>
+						<td><select name="usrRoleId" id="select">
+								<option>请选择...</option>
+						</select></td>
+					</tr>
+					<tr>
+						<td>状态</td>
+						<td><select name="usrFlag" id = "select1">
+								<option>请选择...</option>
+								<option value="1" >正常</option>
+								<option value="0">删除</option>
+						</select></td>
+					</tr>
+
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+var param = window.location.search;
+$(function(){
+	$.ajax({
+		type:"get",
+		url:"/crmsys/role/findall.do",
+		dataType:"json",
+		success:function(data){
+			if(data.code == 1){
+				var infos = data.info;
+				$(infos).each(function(){
+				var html='<option value="'+this.roleId+'">'+this.roleName+'</option>'
+				$("#select").append($(html));
+				})
+				///
+				$.ajax({
+					type:"get",
+					url:"/crmsys/user/find.do"+param,
+					dataType:"json",
+					success:function(data){
+						if(data.code == 1){
+							$("#usrId").val(data.info.usrId);
+							$("#usrName").val(data.info.usrName);
+							//绑定角色
+							var opts = document.getElementById("select");
+							var value = data.info.usrRoleId;
+							if(value!=""){
+								for(var i=0;i<opts.options.length;i++){
+									if(value==opts.options[i].value){
+									opts.options[i].selected = 'selected';
+									}
+								}
+							}
+							//绑定状态
+							var opts1 = document.getElementById("select1");
+
+							var value1 = data.info.usrFlag;
+						//	if(value1!=""){
+								for(var j=0;j<opts1.options.length;j++){
+									if(value1==opts1.options[j].value){
+										opts1.options[j].selected = 'selected';
+									}
+								}
+						//	}
+						}
+					}
+					
+				})
+				///
+			}
+		}
+	})
+})
+</script>
+	
+	<script type="text/javascript">
+		var param = window.location.search;
+		function update(){
+			$.ajax({
+				type:"get",
+				url:"/crmsys/user/update.do"+param,
+				data:{usrName:$("input[name='usrName']").val(),usrRoleId:$("#select option:selected").val(),usrFlag:$("#select1 option:selected").val()},
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						alert("修改成功");
+					}
+					else{
+						alert(data.info);
+					}
+				}
+			})
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>营销管理</title>
+<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery.js"></script>
+<script type="text/javascript" src="../../js/jquery.pagination.js"></script>
+<script type="text/javascript"
+	src="../../js/simpla.jquery.configuration.js"></script>
+<script type="text/javascript" src="../../js/javascript.js"></script>
+<script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
+
+</head>
+
+<body>
+	<!--<div class="notification attention" style="margin-bottom:5px;">
+				<a href="#" class="close"><img src="../resources/images/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+				<div>
+					What's the FUCK!?
+				</div>
+			</div>-->
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：营销管理&nbsp;&gt;&nbsp;销售机会管理&nbsp;&gt;&nbsp;销售机会
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<a href="#" title="新建" onclick="to('add.html')">新建</a> <a
+				href="javascript:search()" title="查询">查询</a>
+		</div>
+		<form>
+			<div class="search_input">
+				<ul class="txt">
+					<li>客户名称： <input type="text" size="30" name="chcCusrName" />
+					</li>
+					<li>联系人： <input type="text" size="30" name="chcLinkman" />
+					</li>
+					<li>创建时间： <input type="date" size="30" name="chcCreateDate" />
+					</li>
+				</ul>
+			</div>
+		</form>
+		<div>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				class="table_list">
+				<thead>
+					<tr>
+						<th width="15%">编号</th>
+						<th width="15%">客户名称</th>
+						<th width="15%">概要</th>
+						<th width="15%">联系人</th>
+						<th width="15%">联系电话</th>
+						<th width="15%">创建时间</th>
+						<th width="10%">操作</th>
+					</tr>
+				</thead>
+				<tbody>
+
+				</tbody>
+			</table>
+		</div>
+		<div class="wrapper">
+			<div class="M-box"></div>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+$(function(){
+	loadData(1);
+})
+function loadData(page){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/saleChance/list.do?page="+page,
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					$("tbody").empty();
+					var infos = data.info.rows;
+					var total = data.info.total;
+					var totalPage = Math.ceil(total/5);
+					var pno = page;
+					$(infos).each(function(index){
+					var index=index+1;
+					var html=' <tr>';
+				        html+='  <td>'+index+'</td>';
+				        html+='  <td><a href="#">'+this.chcCusrName+'</a></td>';
+				        html+='  <td>'+this.chcTitle+'</td>';
+				        html+='  <td>'+this.chcLinkman+'</td>';
+				        html+='  <td> '+this.chcTel+'</td>';
+				        html+='  <td> '+this.chcCreateDate+'</td>';
+				        if(this.chcFlag==1){
+				        	html+='  <td><input type="button" onclick="javascript:deleteC('+this.chcId+')"  value="删除"/></td>';
+				        }else{
+				        	html+='<td></td>';
+				        }
+				        html+='</tr>';
+				        $("tbody").append($(html));
+				        //分页设置
+	                    $('.M-box').pagination({  
+	                        pageCount: totalPage,  // 总页数
+	                        current:pno,//当前第几页  
+	                        jump: true,  // 是否显示跳转相关元素
+	                        jumpBtn: 'go', // 跳转按钮显示文字
+	                        coping: true,    //是否显示首页末页
+	                        homePage: '首页',  
+	                        endPage: '末页',  
+	                        prevContent: '<<',  // 上一页功能 显示文字信息
+	                        nextContent: '>>',  
+	                        callback:function(index){  
+	                            //$('.now').text(index.getCurrent());  
+	                            // 该回调函数用到的当前页是根据实际操作计算得到
+	                            loadData(index.getCurrent());//获取当前页  
+	                       } 
+	                    });
+					})
+				}
+			}
+		})
+	}
+</script>
+
+	<script type="text/javascript">
+	function deleteC(id){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/saleChance/delete.do?chcId="+id,
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					alert("删除成功");
+					window.location.reload();
+				}else{
+					alert(data.info);
+				}
+			}
+		})
+	}
+</script>
+
+	<script type="text/javascript">
+	function search(){
+		loadInfo(1);
+	}
+	function loadInfo(page){
+		$.ajax({
+			type:"post",
+			url:"/crmsys/salChance/findByCondition.do?page="+page,
+			data:$("form").serialize(),
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					$("tbody").empty();
+					var infos = data.info.rows;
+					var total = data.info.total;
+					var totalPage = Math.ceil(total/5);
+					var pno = page;
+					$(infos).each(function(index){
+					var index=index+1;
+					var html=' <tr>';
+				        html+='  <td>'+index+'</td>';
+				        html+='  <td><a href="#">'+this.chcCusrName+'</a></td>';
+				        html+='  <td>'+this.chcTitle+'</td>';
+				        html+='  <td>'+this.chcLinkman+'</td>';
+				        html+='  <td> '+this.chcTel+'</td>';
+				        html+='  <td> '+this.chcCreateDate+'</td>';
+				        if(this.chcFlag==1){
+				        	html+='  <td><input type="button" onclick="javascript:deleteC('+this.chcId+')"  value="删除"/></td>';
+				        }else{
+				        	html+='<td></td>';
+				        }
+				        html+='</tr>';
+				        $("tbody").append($(html));
+				        //分页设置
+	                    $('.M-box').pagination({  
+	                        pageCount: totalPage,  // 总页数
+	                        current:pno,//当前第几页  
+	                        jump: true,  // 是否显示跳转相关元素
+	                        jumpBtn: 'go', // 跳转按钮显示文字
+	                        coping: true,    //是否显示首页末页
+	                        homePage: '首页',  
+	                        endPage: '末页',  
+	                        prevContent: '<<',  // 上一页功能 显示文字信息
+	                        nextContent: '>>',  
+	                        callback:function(index){  
+	                            //$('.now').text(index.getCurrent());  
+	                            // 该回调函数用到的当前页是根据实际操作计算得到
+	                            loadData(index.getCurrent());//获取当前页  
+	                       } 
+	                    });
+					})
+				}else{
+					alert(data.info);
+				}
+				
+			}
+		})
+	}
+</script>
+</body>
+</html>

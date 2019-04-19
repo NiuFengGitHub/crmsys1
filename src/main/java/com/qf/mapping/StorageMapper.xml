@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qf.dao.StorageMapper">
+  <resultMap id="BaseResultMap" type="com.qf.entity.Storage">
+    <id column="stk_id" jdbcType="INTEGER" property="stkId" />
+    <result column="stk_prod_id" jdbcType="INTEGER" property="stkProdId" />
+    <result column="stk_warehouse" jdbcType="VARCHAR" property="stkWarehouse" />
+    <result column="stk_ware" jdbcType="VARCHAR" property="stkWare" />
+    <result column="stk_count" jdbcType="INTEGER" property="stkCount" />
+    <result column="stk_memo" jdbcType="VARCHAR" property="stkMemo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    stk_id, stk_prod_id, stk_warehouse, stk_ware, stk_count, stk_memo
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from storage
+    where stk_id = #{stkId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from storage
+    where stk_id = #{stkId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qf.entity.Storage">
+    insert into storage (stk_id, stk_prod_id, stk_warehouse, 
+      stk_ware, stk_count, stk_memo
+      )
+    values (#{stkId,jdbcType=INTEGER}, #{stkProdId,jdbcType=INTEGER}, #{stkWarehouse,jdbcType=VARCHAR}, 
+      #{stkWare,jdbcType=VARCHAR}, #{stkCount,jdbcType=INTEGER}, #{stkMemo,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qf.entity.Storage">
+    insert into storage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stkId != null">
+        stk_id,
+      </if>
+      <if test="stkProdId != null">
+        stk_prod_id,
+      </if>
+      <if test="stkWarehouse != null">
+        stk_warehouse,
+      </if>
+      <if test="stkWare != null">
+        stk_ware,
+      </if>
+      <if test="stkCount != null">
+        stk_count,
+      </if>
+      <if test="stkMemo != null">
+        stk_memo,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stkId != null">
+        #{stkId,jdbcType=INTEGER},
+      </if>
+      <if test="stkProdId != null">
+        #{stkProdId,jdbcType=INTEGER},
+      </if>
+      <if test="stkWarehouse != null">
+        #{stkWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="stkWare != null">
+        #{stkWare,jdbcType=VARCHAR},
+      </if>
+      <if test="stkCount != null">
+        #{stkCount,jdbcType=INTEGER},
+      </if>
+      <if test="stkMemo != null">
+        #{stkMemo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qf.entity.Storage">
+    update storage
+    <set>
+      <if test="stkProdId != null">
+        stk_prod_id = #{stkProdId,jdbcType=INTEGER},
+      </if>
+      <if test="stkWarehouse != null">
+        stk_warehouse = #{stkWarehouse,jdbcType=VARCHAR},
+      </if>
+      <if test="stkWare != null">
+        stk_ware = #{stkWare,jdbcType=VARCHAR},
+      </if>
+      <if test="stkCount != null">
+        stk_count = #{stkCount,jdbcType=INTEGER},
+      </if>
+      <if test="stkMemo != null">
+        stk_memo = #{stkMemo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where stk_id = #{stkId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qf.entity.Storage">
+    update storage
+    set stk_prod_id = #{stkProdId,jdbcType=INTEGER},
+      stk_warehouse = #{stkWarehouse,jdbcType=VARCHAR},
+      stk_ware = #{stkWare,jdbcType=VARCHAR},
+      stk_count = #{stkCount,jdbcType=INTEGER},
+      stk_memo = #{stkMemo,jdbcType=VARCHAR}
+    where stk_id = #{stkId,jdbcType=INTEGER}
+  </update>
+  	
+  	<select id="find" resultType="com.qf.vo.VStorage">
+  		select p.prod_name prodname,p.prod_type prodtype,p.prod_batch prodbatch, s.stk_warehouse stkarehouse,s.stk_ware stkware,s.stk_count stkcount,s.stk_memo stkmemo
+		from product p
+		INNER JOIN `storage`  s
+		on p.prod_id = s.stk_id
+ 
+  	</select>
+  	
+  	
+  	<select id="findByCondition" parameterType="map" resultType="com.qf.vo.VStorage">
+  		select p.prod_name prodname,p.prod_type prodtype,p.prod_batch prodbatch, s.stk_warehouse stkarehouse,s.stk_ware stkware,s.stk_count stkcount,s.stk_memo stkmemo
+		from product p
+		INNER JOIN `storage`  s
+		on p.prod_id = s.stk_id
+		
+		<where>
+			<if test="stkwarehouse!=null">
+				and s.stk_warehouse like '%${stkwarehouse}%'
+				
+			</if>
+			
+			<if test="prodname!=null ">
+				 and (p.prod_name like '%${prodname}%'
+			</if>
+			
+			<if test="prodtype!=null">
+				or p.prod_type like '%${prodtype}%'
+			</if>
+			
+			<if test="prodbatch!=null">
+				or p.prod_batch like '%${prodbatch}%'
+			</if>
+			)
+		</where>
+  	</select>
+</mapper>
