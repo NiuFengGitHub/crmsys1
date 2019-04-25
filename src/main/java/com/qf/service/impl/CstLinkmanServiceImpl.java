@@ -25,4 +25,14 @@ public class CstLinkmanServiceImpl implements CstLinkmanService {
         map.put("rows",list);
         return map;
     }
+
+    @Override
+    public CstLinkman findById(int lkmId) {
+        return linkmanDao.selectByPrimaryKey(lkmId);
+    }
+
+    @Override
+    public void update(CstLinkman cstLinkman) {
+        linkmanDao.updateByPrimaryKeySelective(cstLinkman);
+    }
 }
