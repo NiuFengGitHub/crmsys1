@@ -1,16 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>客户开发计划</title>
-<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
-<script type="text/javascript" src="../../js/jquery.pagination.js"></script>
-<script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
-<script type="text/javascript" src="../../js/javascript.js"></script>
-<script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>客户开发计划</title>
+  <link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../../js/jquery.pagination.js"></script>
+  <script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
+  <script type="text/javascript" src="../../js/javascript.js"></script>
+  <script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
 </head>
 
 <body>
@@ -26,18 +26,18 @@
         <input type="text" size="30" name="custName"/>
       </li>
       <li>地区：
-      <input type="text" size="30" name="custRegion"/>
+        <input type="text" size="30" name="custRegion"/>
       <li>客户经理：
         <select id="select" name="custManagerId" >
           <option value = "0">全部</option>
-  
+
         </select>
       </li>
 
       </li>
       <li>客户等级：
         <select id="select1" name="custLevel" >
-         <option value="0">全部</option>
+          <option value="0">全部</option>
 
         </select>
       </li>
@@ -47,15 +47,15 @@
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
       <thead>
-        <tr>
-          <th width="5%">序号</th>
-          <th width="15%">客户编号</th>
-          <th width="20%">客户名称</th>
-          <th width="10%">地区</th>
-          <th width="15%">客户经理</th>
-          <th width="15%">客户等级</th>
-          <th width="15%">操作</th>
-        </tr>
+      <tr>
+        <th width="5%">序号</th>
+        <th width="15%">客户编号</th>
+        <th width="20%">客户名称</th>
+        <th width="10%">地区</th>
+        <th width="15%">客户经理</th>
+        <th width="15%">客户等级</th>
+        <th width="15%">操作</th>
+      </tr>
       </thead>
       <tbody>
 
@@ -63,196 +63,196 @@
       </tbody>
     </table>
   </div>
-    <div class="wrapper">
-	<div class="M-box"></div>
+  <div class="wrapper">
+    <div class="M-box"></div>
   </div>
 </div>
 
-	<script type="text/javascript">
-	$(function(){
-		loadData(1);
-	})
-	
-	function loadData(page){
-		$.ajax({
-			type:"get",
-			url:"/crmsys/cus/list.do?page="+page,
-			dataType:"json",
-			success:function(data){
-				if(data.code == 1){
-					$("tbody").empty();
-					var total = data.info.total;
-					//Math.ceil向上取整，Math.floor  向下取整
-					var totalPage =Math.ceil(total/5);//向上取整
-					var pno = page;
-					//总条数
-					var infos = data.info.rows;
-					$(infos).each(function(index){
-					    var no = this.custNo;
-						var index = index+1;
-						var html = "<tr>";
-							html+='   <td>'+index+'</td>';
-         					html+='   <td>'+this.custNo+'</td>';
-         					html+='   <td>'+this.custName+'</td>';
-         					html+='   <td>'+this.custRegion+'</td>';
-         					html+='   <td>'+this.managerName+'</td>';
-         					html+='   <td>'+this.cusLevel+'</td>';
-         					if(this.status == 0){
-         						html+='<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="javascript:edit('+this.id+')" /><a href="linkman.html?cstno='+this.custNo+'"><img title="联系人" src="../../images/user.ico" class="op_button"  /></a><img title="交往记录" src="../../images/bubble.ico" class="op_button" onclick="javascript:contat('+this.id+')" /><img title="历史订单" src="../../images/document.ico" class="op_button" onclick="javascript:order('+this.id+')" /></td>';
+<script type="text/javascript">
+    $(function(){
+        loadData(1);
+    })
 
-         					}
-         				//	html+='   <td>'+this.status+'</td>';
+    function loadData(page){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/cus/list.do?page="+page,
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    $("tbody").empty();
+                    var total = data.info.total;
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage =Math.ceil(total/5);//向上取整
+                    var pno = page;
+                    //总条数
+                    var infos = data.info.rows;
+                    $(infos).each(function(index){
+                        var no = this.custNo;
+                        var index = index+1;
+                        var html = "<tr>";
+                        html+='   <td>'+index+'</td>';
+                        html+='   <td>'+this.custNo+'</td>';
+                        html+='   <td>'+this.custName+'</td>';
+                        html+='   <td>'+this.custRegion+'</td>';
+                        html+='   <td>'+this.managerName+'</td>';
+                        html+='   <td>'+this.cusLevel+'</td>';
+                        if(this.status == 0){
+                            html+='<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="javascript:edit('+this.id+')" /><a href="linkman.html?cstno='+this.custNo+'"><img title="联系人" src="../../images/user.ico" class="op_button"  /></a><a href="contact.html?cstno='+this.custNo+'"><img title="交往记录" src="../../images/bubble.ico" class="op_button"  /></a><a href="order.html?cstno='+this.custNo+'"><img title="历史订单" src="../../images/document.ico" class="op_button" " /></a></td>';
+
+                        }
+                        //	html+='   <td>'+this.status+'</td>';
 
                         html+='</tr>';
                         index++;
-         					$("tbody").append($(html));
-         					
-      					  //分页设置
-    	                    $('.M-box').pagination({  
-    	                        pageCount: totalPage,  // 总页数
-    	                        current:pno,//当前第几页  
-    	                        jump: true,  // 是否显示跳转相关元素
-    	                        jumpBtn: 'go', // 跳转按钮显示文字
-    	                        coping: true,    //是否显示首页末页
-    	                        homePage: '首页',  
-    	                        endPage: '末页',  
-    	                        prevContent: '<<',  // 上一页功能 显示文字信息
-    	                        nextContent: '>>',  
-    	                        callback:function(index){  
-    	                            //$('.now').text(index.getCurrent());  
-    	                            // 该回调函数用到的当前页是根据实际操作计算得到
-    	                            loadData(index.getCurrent());//获取当前页  
-    	                       } 
-    	                    });
-					})		
-				}
-			}
-		
-		})
-	}
-	</script>
-	
-	<script type="text/javascript">
-	function edit(id){
-		window.location.href="edit.html?id="+id;
-	}
-	
-	function link(no){
+                        $("tbody").append($(html));
+
+                        //分页设置
+                        $('.M-box').pagination({
+                            pageCount: totalPage,  // 总页数
+                            current:pno,//当前第几页
+                            jump: true,  // 是否显示跳转相关元素
+                            jumpBtn: 'go', // 跳转按钮显示文字
+                            coping: true,    //是否显示首页末页
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '<<',  // 上一页功能 显示文字信息
+                            nextContent: '>>',
+                            callback:function(index){
+                                //$('.now').text(index.getCurrent());
+                                // 该回调函数用到的当前页是根据实际操作计算得到
+                                loadData(index.getCurrent());//获取当前页
+                            }
+                        });
+                    })
+                }
+            }
+
+        })
+    }
+</script>
+
+<script type="text/javascript">
+    function edit(id){
+        window.location.href="edit.html?id="+id;
+    }
+
+    function link(no){
         alert(no);
-		window.location.href="linkman.html?csrno="+no;
-	}
-	
-	function contat(id){
-		window.location.href = "contact.html?id="+id;
-	}
-	
-	function order(id){
-		window.location.href = "order.html?id="+id;
-	}
-	</script>
-	<!--  客户经理加载 -->
-	<script type="text/javascript">
-	$(function(){
-		$.ajax({
-			type:"post",
-			url:"/crmsys/user/findId.do",
-			dataType:"json",
-			success:function(data){
-				if(data.code == 1){
-					var infos = data.info;
-					$(infos).each(function(){
-						var html='<option value="'+this.usrId+'">'+this.usrName+'</option>';
-						$("#select").append($(html));
-					})
-					
-				}
-			}
-		})
-	})
-<!--  客户等级加载 -->
-	$(function(){
-		$.ajax({
-			type:"post",
-			url:"/crmsys/dict/load.do",
-			dataType:"json",
-			success:function(data){
-				if(data.code == 1){
-					var infos = data.info;
-					$(infos).each(function(){
-						var html='<option value="'+this.dictId+'">'+this.dictType+'</option>';
-						$("#select1").append($(html));
-					})
-					
-				}
-			}
-		})
-	})
+        window.location.href="linkman.html?csrno="+no;
+    }
+
+    function contat(id){
+        window.location.href = "contact.html?id="+id;
+    }
+
+    function order(id){
+        window.location.href = "order.html?id="+id;
+    }
+</script>
+<!--  客户经理加载 -->
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            type:"post",
+            url:"/crmsys/user/findId.do",
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    var infos = data.info;
+                    $(infos).each(function(){
+                        var html='<option value="'+this.usrId+'">'+this.usrName+'</option>';
+                        $("#select").append($(html));
+                    })
+
+                }
+            }
+        })
+    })
+    <!--  客户等级加载 -->
+    $(function(){
+        $.ajax({
+            type:"post",
+            url:"/crmsys/dict/load.do",
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    var infos = data.info;
+                    $(infos).each(function(){
+                        var html='<option value="'+this.dictId+'">'+this.dictType+'</option>';
+                        $("#select1").append($(html));
+                    })
+
+                }
+            }
+        })
+    })
 </script>
 
 <!-- 搜索 -->
 <script type="text/javascript">
-function search(){
-	loadInfo(1);
+    function search(){
+        loadInfo(1);
 
-}
+    }
 
-function loadInfo(page1){
-	$.ajax({
-		type:"get",
-		url:"/crmsys/cus/search.do?page="+page1,
-		data:{custName:$("input[name='custName']").val(),custRegion:$("input[name='custRegion']").val(),custManagerId:$("#select option:selected").val(),custLevel:$("#select1 option:selected").val()},
-		dataType:"json",
-		success:function(data){
-			if(data.code == 1){
-				var total = data.info.total;
-				//Math.ceil向上取整，Math.floor  向下取整
-				var totalPage1 =Math.ceil(total/5);//向上取整s
-				var pno1 = page1;
-				//总条数
-				var infos = data.info.list;
-				$("tbody").empty();
-				$(infos).each(function(){
+    function loadInfo(page1){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/cus/search.do?page="+page1,
+            data:{custName:$("input[name='custName']").val(),custRegion:$("input[name='custRegion']").val(),custManagerId:$("#select option:selected").val(),custLevel:$("#select1 option:selected").val()},
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    var total = data.info.total;
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage1 =Math.ceil(total/5);//向上取整s
+                    var pno1 = page1;
+                    //总条数
+                    var infos = data.info.list;
+                    $("tbody").empty();
+                    $(infos).each(function(){
 
-                    var index = index+1;
-                    var html = '<tr>';
-                    html+='   <td>'+index+'</td>';
-                    html+='   <td>'+this.custNo+'</td>';
-                    html+='   <td>'+this.custName+'</td>';
-                    html+='   <td>'+this.custRegion+'</td>';
-                    html+='   <td>'+this.managerName+'</td>';
-                    html+='   <td>'+this.cusLevel+'</td>';
-     					if(this.status == 0){
-     						html+='<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="javascript:edit('+this.id+')" /><a href="linkman.html?cstno=\'+this.custNo+\'"><img title="联系人" src="../../images/user.ico" class="op_button"  /></a><img title="交往记录" src="../../images/bubble.ico" class="op_button" onclick="javascript:contat('+this.id+')" /><img title="历史订单" src="../../images/document.ico" class="op_button" onclick="javascript:order('+this.id+')" /></td>';
+                        var index = index+1;
+                        var html = '<tr>';
+                        html+='   <td>'+index+'</td>';
+                        html+='   <td>'+this.custNo+'</td>';
+                        html+='   <td>'+this.custName+'</td>';
+                        html+='   <td>'+this.custRegion+'</td>';
+                        html+='   <td>'+this.managerName+'</td>';
+                        html+='   <td>'+this.cusLevel+'</td>';
+                        if(this.status == 0){
+                            html+='<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="javascript:edit('+this.id+')" /><a href="linkman.html?cstno=\'+this.custNo+\'"><img title="联系人" src="../../images/user.ico" class="op_button"  /></a><img title="交往记录" src="../../images/bubble.ico" class="op_button" onclick="javascript:contat('+this.id+')" /><img title="历史订单" src="../../images/document.ico" class="op_button" onclick="javascript:order('+this.id+')" /></td>';
 
-     					}
+                        }
 
-     					index++;
-     					html+='</tr>';
-     					$("tbody").append($(html));
-     					
-  					  //分页设置
-	                    $('.M-box').pagination({  
-	                        pageCount: totalPage1,  // 总页数
-	                        current:pno1,//当前第几页  
-	                        jump: true,  // 是否显示跳转相关元素
-	                        jumpBtn: 'go', // 跳转按钮显示文字
-	                        coping: true,    //是否显示首页末页
-	                        homePage: '首页',  
-	                        endPage: '末页',  
-	                        prevContent: '<<',  // 上一页功能 显示文字信息
-	                        nextContent: '>>',  
-	                        callback:function(index){  
-	                            //$('.now').text(index.getCurrent());  
-	                            // 该回调函数用到的当前页是根据实际操作计算得到
-	                            loadInfo(index.getCurrent());//获取当前页  
-	                       } 
-	                    });
-				})	
-			}
-		}
-	})
-	
-}
+                        index++;
+                        html+='</tr>';
+                        $("tbody").append($(html));
+
+                        //分页设置
+                        $('.M-box').pagination({
+                            pageCount: totalPage1,  // 总页数
+                            current:pno1,//当前第几页
+                            jump: true,  // 是否显示跳转相关元素
+                            jumpBtn: 'go', // 跳转按钮显示文字
+                            coping: true,    //是否显示首页末页
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '<<',  // 上一页功能 显示文字信息
+                            nextContent: '>>',
+                            callback:function(index){
+                                //$('.now').text(index.getCurrent());
+                                // 该回调函数用到的当前页是根据实际操作计算得到
+                                loadInfo(index.getCurrent());//获取当前页
+                            }
+                        });
+                    })
+                }
+            }
+        })
+
+    }
 </script>
 
 </body>
