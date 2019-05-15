@@ -11,4 +11,9 @@ public interface CstLinkmanService {
     public CstLinkman findById(int lkmId);
     //更新
     public void update(CstLinkman cstLinkman);
+    //添加
+    public void addMan(CstLinkman linkman);
+
+    //删除
+    public void deleteMan(int lkmId);
 }

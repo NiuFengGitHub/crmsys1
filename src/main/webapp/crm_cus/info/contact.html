@@ -13,7 +13,6 @@
   <script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
 
 </head>
-
 <body>
 <div style="padding:5px;">
   <div class="txt" style="padding-top:3px;" >当前位置：客户开发计划&nbsp;&gt;&nbsp;客户信息管理&nbsp;&gt;&nbsp;<a href="list.html">客户信息</a>&nbsp;&gt;&nbsp;交往记录
@@ -44,15 +43,6 @@
       </tr>
       </thead>
       <tbody id="tid">
-      <!--<tr>-->
-        <!--<td><input type="checkbox" /></td>-->
-        <!--<td>2013-12-22</td>-->
-        <!--<td>友谊宾馆</td>-->
-        <!--<td>签订意向协议</td>-->
-        <!--<td>.....</td>-->
-        <!--<td>主办单位：计算机报社</td>-->
-        <!--<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('contact_edit.html')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>-->
-      <!--</tr>-->
 
       </tbody>
     </table>
@@ -62,8 +52,14 @@
   </div>
 </div>
 
+
+
 <script type="text/javascript">
     var param = window.location.search;
+    // alert(param);
+    //切割字符串
+    var newstr =  param.slice(param.indexOf("=")+1,param.length);
+    // alert(newstr);
     $(function(){
         loadData(1);
     })
@@ -71,31 +67,32 @@
     function loadData(page){
         $.ajax({
             type:"get",
-            url:"/crmsys/activity/list.do"+param,
-            data:{page:page},
+            url:"/crmsys/activity/list.do?page="+page,
+            data:{cstno:newstr},
             dataType:"json",
             success:function(data){
+                // alert(data.code);
                 if(data.code == 1){
-                    $("tbody").empty();
+
+                    $("#tid").empty();
                     var total = data.info.total;
+
                     //Math.ceil向上取整，Math.floor  向下取整
                     var totalPage =Math.ceil(total/5);//向上取整
                     var pno = page;
                     //总条数
                     var infos = data.info.rows;
+                    // alert(infos);
                     $(infos).each(function(){
-                        var no = this.custNo;
+                        // var no = this.custNo;
+                        // alert(this.atvDate);
                         var html = "<tr>";
                         html+='   <td><input type="checkbox" /></td>';
                         html+='   <td>'+this.atvDate+'</td>';
                         html+='   <td>'+this.atvPlace+'</td>';
                         html+='   <td>'+this.atvTitle+'</td>';
                         html+='   <td>'+this.atvDesc+'</td>';
-                        if(this.atvFlag == 0){
-                            html+='<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to(\'contact_edit.html\')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>';
-
-                        }
-
+                        html+='<td><a href="contact_edit.html?atvId='+this.atvId+'"><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" /></a><img title="删除" src="../../images/cross.png" class="op_button close" /></td>';
                         html+='</tr>';
                         $("#tid").append($(html));
 
@@ -123,5 +120,6 @@
         })
     }
 </script>
+
 </body>
 </html>

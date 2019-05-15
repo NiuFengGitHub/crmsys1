@@ -21,9 +21,18 @@
   </div>
   <div class="operation_button">
     <a href="#" title="返回" onclick="back()">返回</a>
-    <a href="#" title="新建" onclick="to('linkman_add.html')">新建</a>
+    <a href="#" title="新建" onclick="javascript:linkadd()">新建</a>
   </div>
-  <div> &nbsp;</div>
+  <div>&nbsp;</div>
+    <table border="0" cellpadding="0" cellspacing="0" class="table_show txt">
+      <tr>
+        <td width="100" align="center">客户编号：</td>
+        <td width="200">KH071202001</td>
+        <td width="100" align="center">客户名称：</td>
+        <td width="200">聪海信息科技有限公司</td>
+      </tr>
+    </table>
+
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
       <thead>
@@ -38,26 +47,16 @@
         <th width="15%">操作</th>
       </tr>
       </thead>
-      <tbody>
+      <tbody id="tid">
 
-      <!--<tr>-->
-        <!--<td><input type="checkbox" /></td>-->
-        <!--<td>沈丛林</td>-->
-        <!--<td>男</td>-->
-        <!--<td>总经理</td>-->
-        <!--<td>010-68348438-668</td>-->
-        <!--<td>13622883228</td>-->
-        <!--<td></td>-->
-        <!--<td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('linkman_edit.html')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>-->
-      <!--</tr>-->
       </tbody>
     </table>
   </div>
 
 </div>
-    <div class="wrapper">
-      <div class="M-box"></div>
-    </div>
+<div class="wrapper">
+  <div class="M-box"></div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -73,7 +72,7 @@
             dataType: "json",
             success: function (data) {
                 if (data.code == 1) {
-                    $("tbody").empty();
+                    $("#tid").empty();
                     var total = data.info.total;
                     //Math.ceil向上取整，Math.floor  向下取整
                     var totalPage = Math.ceil(total / 5);//向上取整
@@ -91,11 +90,11 @@
                             '        <td>' + this.lkmMobile + '</td>\n' +
                             '        <td>' + this.lkmMemo + '</td>\n';
                         if (this.lkmFlag == 0) {
-                            html += '        <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="javascript:edit('+this.lkmId+')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>\n';
+                            html += '        <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="javascript:edit('+this.lkmId+')" /><a onclick="javascript:dele('+this.lkmId+')"><img title="删除" src="../../images/cross.png" class="op_button close" /></a></td>\n';
                         }
                         html += ' </tr>';
                         index++;
-                        $("tbody").append($(html));
+                        $("#tid").append($(html));
 
                     })
                     //分页设置
@@ -122,9 +121,33 @@
 
 </script>
 <script type="text/javascript">
-  function edit(id){
-      window.location.href="linkman_edit.html?lkmId="+id;
-  }
+    function edit(id){
+        window.location.href="linkman_edit.html?lkmId="+id;
+    }
+</script>
+
+<script type="text/javascript">
+    var param = window.location.search;
+    // alert(param+"1");
+    function linkadd(){
+        window.location.href="linkman_add.html"+param;
+
+    }
+
+    //假删
+    function dele(id){
+        $.ajax({
+            type:"post",
+            url:"/crmsys/linkman/delete.do?lkmId="+id,
+            dataType:"json",
+            success:function(data){
+                if(data.code==1){
+                    alert("删除成功");
+                    window.location.reload();
+                }
+            }
+        })
+    }
 </script>
 
 </body>

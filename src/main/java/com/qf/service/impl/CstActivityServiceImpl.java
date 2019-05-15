@@ -27,4 +27,14 @@ public class CstActivityServiceImpl implements CstActivityService {
         map.put("rows",list);
         return map;
     }
+
+    @Override
+    public CstActivity findSingle(int atvId) {
+        return activityDao.selectByPrimaryKey(atvId);
+    }
+
+    @Override
+    public int update(CstActivity cstActivity) {
+        return activityDao.updateByPrimaryKeySelective(cstActivity);
+    }
 }

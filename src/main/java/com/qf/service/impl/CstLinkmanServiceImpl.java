@@ -35,4 +35,14 @@ public class CstLinkmanServiceImpl implements CstLinkmanService {
     public void update(CstLinkman cstLinkman) {
         linkmanDao.updateByPrimaryKeySelective(cstLinkman);
     }
+
+    @Override
+    public void addMan(CstLinkman linkman) {
+        linkmanDao.insert(linkman);
+    }
+
+    @Override
+    public void deleteMan(int lkmId) {
+        linkmanDao.deleteByPrimaryKey(lkmId);
+    }
 }

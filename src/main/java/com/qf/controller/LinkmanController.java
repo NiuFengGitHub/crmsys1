@@ -34,4 +34,22 @@ public class LinkmanController {
         linkmanService.update(cstLinkman);
         return  JsonUtils.createJsonBean(1,null);
     }
+
+    //添加联系人
+    @RequestMapping("/linkman/add.do")
+    public JsonBean add(CstLinkman linkman,String cstno){
+//        System.out.println(cstno);
+        linkman.setLkmCustNo(cstno);
+        linkman.setLkmFlag(0);
+        linkmanService.addMan(linkman);
+//        System.out.println(linkman.getLkmFlag());
+        return JsonUtils.createJsonBean(1,null);
+    }
+
+    //删除
+    @RequestMapping("/linkman/delete.do")
+    public JsonBean delMan(int lkmId){
+        linkmanService.deleteMan(lkmId);
+        return JsonUtils.createJsonBean(1,null);
+    }
 }
