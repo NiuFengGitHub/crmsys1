@@ -13,4 +13,7 @@ public interface CstActivityService {
 
     //更新数据
     public int update(CstActivity cstActivity);
+
+    //添加
+    public void add(CstActivity cstActivity);
 }

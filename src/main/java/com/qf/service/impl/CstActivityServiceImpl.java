@@ -37,4 +37,9 @@ public class CstActivityServiceImpl implements CstActivityService {
     public int update(CstActivity cstActivity) {
         return activityDao.updateByPrimaryKeySelective(cstActivity);
     }
+
+    @Override
+    public void add(CstActivity cstActivity) {
+        activityDao.insertSelective(cstActivity);
+    }
 }
