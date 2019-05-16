@@ -92,7 +92,7 @@
                         html+='   <td>'+this.atvPlace+'</td>';
                         html+='   <td>'+this.atvTitle+'</td>';
                         html+='   <td>'+this.atvDesc+'</td>';
-                        html+='<td><a href="contact_edit.html?atvId='+this.atvId+'"><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" /></a><img title="删除" src="../../images/cross.png" class="op_button close" /></td>';
+                        html+='<td><a href="contact_edit.html?atvId='+this.atvId+'"><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" /></a><a onclick="javascript:delactivity('+this.atvId+')"><img title="删除" src="../../images/cross.png" class="op_button close" /></a></td>';
                         html+='</tr>';
                         $("#tid").append($(html));
 
@@ -122,8 +122,23 @@
 </script>
 <!-- 新建 -->
 <script type="text/javascript">
+   // <!-- 新建 -->
   function add(){
       window.location.href="contact_add.html"+param;
+  }
+  //删除
+  function delactivity(id){
+      $.ajax({
+          type:"get",
+          url:"/crmsys/activity/delete.do"+param+"&atvId="+id,
+          dataType:"json",
+          success:function(data){
+              if(data.code==1){
+                  alert("删除成功");
+                  window.location.reload();
+              }
+          }
+      })
   }
 </script>
 

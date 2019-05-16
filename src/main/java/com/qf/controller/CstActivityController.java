@@ -6,7 +6,6 @@ import com.qf.service.CstActivityService;
 import com.qf.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -38,10 +37,19 @@ public class CstActivityController {
 
     //添加
     @RequestMapping("activity/add.do")
-    public JsonBean add(@RequestBody CstActivity cstActivity, String cstno){
+    public JsonBean add(CstActivity cstActivity, String cstno){
         cstActivity.setAtvCustNo(cstno);
         cstActivity.setAtvFlag(0);
         activityService.add(cstActivity);
+        return JsonUtils.createJsonBean(1,null);
+    }
+
+    //删除
+    @RequestMapping("activity/delete.do")
+    public JsonBean delete(CstActivity cstActivity,String cstno){
+        cstActivity.setAtvCustNo(cstno);
+        cstActivity.setAtvFlag(1);
+        activityService.delete(cstActivity);
         return JsonUtils.createJsonBean(1,null);
     }
 

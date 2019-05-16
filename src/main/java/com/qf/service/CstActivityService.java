@@ -16,4 +16,7 @@ public interface CstActivityService {
 
     //添加
     public void add(CstActivity cstActivity);
+
+    //删除  仅修改状态
+    public int delete(CstActivity cstActivity);
 }
