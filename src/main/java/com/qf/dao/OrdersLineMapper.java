@@ -1,6 +1,9 @@
 package com.qf.dao;
 
 import com.qf.entity.OrdersLine;
+import com.qf.vo.VOrderDetails;
+
+import java.util.List;
 
 public interface OrdersLineMapper {
     int deleteByPrimaryKey(Integer oddId);
@@ -14,4 +17,7 @@ public interface OrdersLineMapper {
     int updateByPrimaryKeySelective(OrdersLine record);
 
     int updateByPrimaryKey(OrdersLine record);
+
+    //订单明细
+    public List<VOrderDetails> findById(int id);
 }

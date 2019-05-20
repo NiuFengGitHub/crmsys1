@@ -12,7 +12,7 @@
     odd_id, odd_order_id, odd_prod_id, odd_count, odd_unit
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from orders_line
     where odd_id = #{oddId,jdbcType=INTEGER}
@@ -90,4 +90,15 @@
       odd_unit = #{oddUnit,jdbcType=VARCHAR}
     where odd_id = #{oddId,jdbcType=INTEGER}
   </update>
+
+  <select id="findById" parameterType="int" resultType="com.qf.vo.VOrderDetails">
+    SELECT p.prod_name prodName,p.prod_price price, ol.odd_count count,ol.odd_unit unit
+    from orders o
+    inner join orders_line ol
+    on o.odr_id = ol.odd_order_id
+    inner join product p
+    on ol.odd_prod_id = p.prod_id
+    where o.odr_id = 1
+
+  </select>
 </mapper>

@@ -94,9 +94,7 @@
   <!-- 查询所有-->
   <select id="findAll" parameterType="string" resultType="com.qf.entity.Orders">
 
-    SELECT * from orders o
-    INNER JOIN cst_activity ac
-    on ac.atv_cust_no = o.odr_customer_no
-    where ac.atv_cust_no = #{custNo}
+   select * from orders  where odr_customer_no = #{custNo}
+
   </select>
 </mapper>
