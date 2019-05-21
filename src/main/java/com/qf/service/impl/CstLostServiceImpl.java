@@ -38,4 +38,15 @@ public class CstLostServiceImpl implements CstLostService {
     public int  update(CstLost cstLost) {
         return lostDao.updateByPrimaryKeySelective(cstLost);
     }
+
+    @Override
+    public Map<String, Object> searchByCondition(int page,String name, int managerId, int lstStatus) {
+        PageHelper.startPage(page,5);
+        List<VLost> list = lostDao.findByCondition(name, managerId, lstStatus);
+        long total = ((Page) list).getTotal();
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("rows",list);
+        return map;
+    }
 }

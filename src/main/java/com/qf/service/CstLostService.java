@@ -14,4 +14,7 @@ public interface CstLostService {
 
     //更新
     public int  update(CstLost cstLost);
+
+    //条件查询
+    public Map<String,Object> searchByCondition(int page,String name,int managerId,int lstStatus);
 }

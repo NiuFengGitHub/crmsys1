@@ -17,7 +17,7 @@
     lst_reason, lst_status, last_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cst_lost
     where lst_id = #{lstId,jdbcType=INTEGER}
@@ -159,5 +159,26 @@
     INNER JOIN sys_user u
     on cl.lst_last_manager_id = u.usr_id
     where cl.lst_id = #{id}
+  </select>
+
+  <!-- 条件查询 -->
+  <select id="findByCondition" parameterType="map" resultType="com.qf.vo.VLost">
+    select cl.lst_id id, cc.cust_name lstCustName,u.usr_name lstLastManagerName,cl.lst_last_order_date lstLastOrderDate,cl.lst_lost_date lstLostDate,cl.lst_delay lstDelay,lst_status lstStatus
+    from cst_lost  cl
+    INNER JOIN cst_customer  cc
+    on cl.lst_cust_no = cc.cust_no
+    INNER JOIN sys_user u
+    on cl.lst_last_manager_id = u.usr_id
+    <where>
+      <if test="name!=null">
+        and cc.cust_name like concat('%',#{name},'%')
+      </if>
+      <if test="managerId!=0">
+        and cl.lst_last_manager_id = #{managerId}
+      </if>
+      <if test="lstStatus!=-1">
+        and cl.lst_status = #{lstStatus}
+      </if>
+    </where>
   </select>
 </mapper>

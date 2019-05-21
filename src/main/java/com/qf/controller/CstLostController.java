@@ -41,5 +41,15 @@ public class CstLostController {
         return JsonUtils.createJsonBean(1,null);
     }
 
+    //条件查询
+    @RequestMapping("/lost/findByCondition.do")
+    public JsonBean findByCondition(int page,String lstCustName, int managerId, int lstStatus){
+        System.out.println(lstCustName);
+        System.out.println(managerId);
+        System.out.println(lstStatus);
+        Map<String, Object> map = lostService.searchByCondition(page, lstCustName, managerId, lstStatus);
+        return JsonUtils.createJsonBean(1,map);
+    }
+
 
 }

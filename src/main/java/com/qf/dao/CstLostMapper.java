@@ -2,6 +2,7 @@ package com.qf.dao;
 
 import com.qf.entity.CstLost;
 import com.qf.vo.VLost;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface CstLostMapper {
 
     //根据id查询单个
     public VLost findById(int id);
+
+    //条件查询
+    public List<VLost> findByCondition(@Param("name") String name,@Param("managerId") int managerId,@Param("lstStatus") int lstStatus);
 }

@@ -20,30 +20,29 @@
     <hr class="hr1" />
   </div>
   <div class="operation_button">
-    <a href="#" title="查询">查询</a>
+    <a href="javascript:search()" >查询</a>
   </div>
   <div class="search_input">
-    <ul class="txt">
-      <li>客户名称：
-        <input type="text" size="30" />
-      </li>
-      <li>客户经理：
-        <select>
-          <option>全部</option>
-          <option>小明</option>
-          <option>小红</option>
-          <option>小刚</option>
-        </select>
-      </li>
-      <li>状态：
-        <select>
-          <option>全部</option>
-          <option>预警</option>
-          <option>暂缓流失</option>
-          <option>确认流失</option>
-        </select>
-      </li>
-    </ul>
+    <form >
+      <ul class="txt">
+        <li>客户名称：
+          <input type="text" size="30" name="lstCustName"/>
+        </li>
+        <li>客户经理：
+          <select id="select" name="managerId">
+            <option value = "0">全部</option>
+          </select>
+        </li>
+        <li>状态：
+          <select name="lstStatus">
+            <option value="-1">全部</option>
+            <option value="0">预警</option>
+            <option value="1">暂缓流失</option>
+            <option value="2">确认流失</option>
+          </select>
+        </li>
+      </ul>
+    </form>
   </div>
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
@@ -60,41 +59,15 @@
       </thead>
       <tbody>
       <!--<tr>-->
-        <!--<td>1</td>-->
-        <!--<td>阳光实业</td>-->
-        <!--<td>球球</td>-->
-        <!--<td>2013-12-12</td>-->
-        <!--<td></td>-->
-        <!--<td>暂缓流失</td>-->
-        <!--<td><img title="确认流失" src="../../images/shield.ico" class="op_button" onclick="to('sure.html')" /><img title="暂缓流失" src="../../images/clock.ico" class="op_button" onclick="to('retard.html')" /></td>-->
+      <!--<td>1</td>-->
+      <!--<td>阳光实业</td>-->
+      <!--<td>球球</td>-->
+      <!--<td>2013-12-12</td>-->
+      <!--<td></td>-->
+      <!--<td>暂缓流失</td>-->
+      <!--<td><img title="确认流失" src="../../images/shield.ico" class="op_button" onclick="to('sure.html')" /><img title="暂缓流失" src="../../images/clock.ico" class="op_button" onclick="to('retard.html')" /></td>-->
       <!--</tr>-->
-      <!--<tr>-->
-        <!--<td>1</td>-->
-        <!--<td>阳光实业</td>-->
-        <!--<td>球球</td>-->
-        <!--<td>2013-12-12</td>-->
-        <!--<td></td>-->
-        <!--<td>暂缓流失</td>-->
-        <!--<td><img title="确认流失" src="../../images/shield.ico" class="op_button" onclick="to('sure.html')" /><img title="暂缓流失" src="../../images/clock.ico" class="op_button" onclick="to('retard.html')" /></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-        <!--<td>1</td>-->
-        <!--<td>阳光实业</td>-->
-        <!--<td>球球</td>-->
-        <!--<td>2013-12-12</td>-->
-        <!--<td></td>-->
-        <!--<td>暂缓流失</td>-->
-        <!--<td><img title="确认流失" src="../../images/shield.ico" class="op_button" onclick="to('sure.html')" /><img title="暂缓流失" src="../../images/clock.ico" class="op_button" onclick="to('retard.html')" /></td>-->
-      <!--</tr>-->
-      <!--<tr>-->
-        <!--<td>1</td>-->
-        <!--<td>阳光实业</td>-->
-        <!--<td>球球</td>-->
-        <!--<td>2013-12-12</td>-->
-        <!--<td></td>-->
-        <!--<td>暂缓流失</td>-->
-        <!--<td><img title="确认流失" src="../../images/shield.ico" class="op_button" onclick="to('sure.html')" /><img title="暂缓流失" src="../../images/clock.ico" class="op_button" onclick="to('retard.html')" /></td>-->
-      <!--</tr>-->
+
       </tbody>
     </table>
   </div>
@@ -175,5 +148,100 @@
     }
 </script>
 
+<!-- 客户经理加载 -->
+<script type="text/javascript">
+    $(function(){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/user/findId.do",
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    var infos = data.info;
+                    $(infos).each(function(){
+                        var html='<option value="'+this.usrId+'">'+this.usrName+'</option>';
+                        $("#select").append($(html));
+                    })
+
+                }
+            }
+        })
+    })
+</script>
+
+<!--  查询-->
+<script type="text/javascript">
+    function search(){
+        loadInfo(1);
+    }
+
+    function loadInfo(page){
+        $.ajax({
+            type:"post",
+            url:"/crmsys/lost/findByCondition.do?page="+page,
+            data:$("form").serialize() ,
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    $("tbody").empty();
+                    var total = data.info.total;
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage =Math.ceil(total/5);//向上取整
+                    var pno = page;
+                    //总条数
+                    var infos = data.info.rows;
+                    $(infos).each(function(index){
+                        var no = this.custNo;
+                        var index = index+1;
+                        var html = "<tr>";
+                        // alert(this.id);
+                        html+='   <td>'+index+'</td>';
+                        html+='   <td>'+this.lstCustName+'</td>';
+                        html+='   <td>'+this.lstLastManagerName+'</td>';
+                        html+='   <td>'+this.lstLastOrderDate+'</td>';
+                        if(this.lstLostDate!=null){
+                            html+='   <td>'+this.lstLostDate+'</td>';
+                        }else{
+                            html+='   <td></td>';
+                        }
+                        if(this.lstStatus == 0){
+                            html+='<td>警告</td>';
+                            html+='<td><a href="retard.html?lstId='+this.id+'"><img title="暂缓流失" src="../../images/clock.ico" class="op_button"  /></a></td>';
+                        }else if(this.lstStatus == 1){
+                            html+='<td>暂缓流失</td>';
+                            html+='<td><a href="sure.html?lstId='+this.id+'"><img title="确认流失" src="../../images/shield.ico" class="op_button"  /></a></td>';
+                        }else if(this.lstStatus == 2){
+                            html+='<td>已流失</td>';
+                            html+='<td></td>';
+                        }
+                        html+='</tr>';
+                        index++;
+                        $("tbody").append($(html));
+
+                        //分页设置
+                        $('.M-box').pagination({
+                            pageCount: totalPage,  // 总页数
+                            current:pno,//当前第几页
+                            jump: true,  // 是否显示跳转相关元素
+                            jumpBtn: 'go', // 跳转按钮显示文字
+                            coping: true,    //是否显示首页末页
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '<<',  // 上一页功能 显示文字信息
+                            nextContent: '>>',
+                            callback:function(index){
+                                //$('.now').text(index.getCurrent());
+                                // 该回调函数用到的当前页是根据实际操作计算得到
+                                loadInfo(index.getCurrent());//获取当前页
+                            }
+                        });
+                    })
+                }
+            }
+
+        })
+    }
+
+</script>
 </body>
 </html>
