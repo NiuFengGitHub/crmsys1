@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -29,7 +30,13 @@ public class CstLostController {
     //更新
     @RequestMapping("/lost/update.do")
     public JsonBean updateById(CstLost cstLost){
-        cstLost.setLstStatus(1);
+        lostService.update(cstLost);
+        return JsonUtils.createJsonBean(1,null);
+    }
+
+    @RequestMapping("/lost/sure.do")
+    public JsonBean sureLost(CstLost cstLost){
+        cstLost.setLstLostDate(new Date());
         lostService.update(cstLost);
         return JsonUtils.createJsonBean(1,null);
     }

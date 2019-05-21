@@ -21,6 +21,8 @@ public class VLost {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date lstLostDate;
+    //暂缓措施
+    private String lstDelay;
 
     //状态
     private Integer lstStatus;
@@ -73,4 +75,11 @@ public class VLost {
         this.lstStatus = lstStatus;
     }
 
+    public String getLstDelay() {
+        return lstDelay;
+    }
+
+    public void setLstDelay(String lstDelay) {
+        this.lstDelay = lstDelay;
+    }
 }
