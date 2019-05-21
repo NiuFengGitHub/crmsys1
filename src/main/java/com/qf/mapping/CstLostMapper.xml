@@ -139,4 +139,25 @@
       last_flag = #{lastFlag,jdbcType=INTEGER}
     where lst_id = #{lstId,jdbcType=INTEGER}
   </update>
+
+  <!-- 查看流失客户 -->
+  <select id="findAll" resultType="com.qf.vo.VLost">
+
+    select cl.lst_id id, cc.cust_name lstCustName,u.usr_name lstLastManagerName,cl.lst_last_order_date lstLastOrderDate,cl.lst_lost_date lstLostDate,cl.lst_delay lstDelay,lst_status lstStatus
+    from cst_lost  cl
+    INNER JOIN cst_customer  cc
+    on cl.lst_cust_no = cc.cust_no
+    INNER JOIN sys_user u
+    on cl.lst_last_manager_id = u.usr_id
+  </select>
+
+  <select id="findById" parameterType="int" resultType="com.qf.vo.VLost">
+     select cl.lst_id id, cc.cust_name lstCustName,u.usr_name lstLastManagerName,cl.lst_last_order_date lstLastOrderDate,cl.lst_lost_date lstLostDate,cl.lst_delay lstDelay,lst_status lstStatus
+    from cst_lost  cl
+    INNER JOIN cst_customer  cc
+    on cl.lst_cust_no = cc.cust_no
+    INNER JOIN sys_user u
+    on cl.lst_last_manager_id = u.usr_id
+    where cl.lst_id = #{id}
+  </select>
 </mapper>
