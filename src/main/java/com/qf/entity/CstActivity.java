@@ -1,12 +1,16 @@
 package com.qf.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class CstActivity {
     private Integer atvId;
 
     private String atvCustNo;
-
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd" ,timezone = "GMT+8")
     private Date atvDate;
 
     private String atvPlace;

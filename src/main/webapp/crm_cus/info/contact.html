@@ -1,17 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>客户开发计划</title>
-<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
-<script type="text/javascript" src="../../js/javascript.js"></script>
-<script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>客户开发计划</title>
+  <link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../../js/jquery.pagination.js"></script>
+  <script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
+  <script type="text/javascript" src="../../js/javascript.js"></script>
+  <script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
 
 </head>
-
 <body>
 <div style="padding:5px;">
   <div class="txt" style="padding-top:3px;" >当前位置：客户开发计划&nbsp;&gt;&nbsp;客户信息管理&nbsp;&gt;&nbsp;<a href="list.html">客户信息</a>&nbsp;&gt;&nbsp;交往记录
@@ -19,76 +20,127 @@
   </div>
   <div class="operation_button">
     <a href="#" title="返回" onclick="back()">返回</a>
-    <a href="#" title="新建" onclick="to('contact_add.html')">新建</a>
+    <a href="#" title="新建" onclick="javascript:add()">新建</a>
   </div>
   <table border="0" cellpadding="0" cellspacing="0" class="table_show txt">
-        <tr>
-          <td width="100" align="center">客户编号：</td>
-          <td width="200">KH071202001</td>
-          <td width="100" align="center">客户名称：</td>
-          <td width="200">聪海信息科技有限公司</td>
-        </tr>
+    <tr>
+      <td width="100" align="center">客户编号：</td>
+      <td width="200">KH071202001</td>
+      <td width="100" align="center">客户名称：</td>
+      <td width="200">聪海信息科技有限公司</td>
+    </tr>
   </table>
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
       <thead>
-        <tr>
-          <th width="5%"><input type="checkbox" class="check-all"/></th>
-          <th width="10%">时间</th>
-          <th width="15%">地点</th>
-          <th width="20%">概要</th>
-          <th width="15%">详细信息</th>
-          <th width="20%">备注</th>
-          <th width="15%">操作</th>
-        </tr>
+      <tr>
+        <th width="5%"><input type="checkbox" class="check-all"/></th>
+        <th width="10%">时间</th>
+        <th width="15%">地点</th>
+        <th width="20%">概要</th>
+        <th width="15%">详细信息</th>
+        <th width="15%">操作</th>
+      </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td><input type="checkbox" /></td>
-          <td>2013-12-22</td>
-          <td>友谊宾馆</td>
-          <td>签订意向协议</td>
-          <td>.....</td>
-          <td>主办单位：计算机报社</td>
-          <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('contact_edit.html')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" /></td>
-          <td>2013-12-22</td>
-          <td>友谊宾馆</td>
-          <td>签订意向协议</td>
-          <td>.....</td>
-          <td>主办单位：计算机报社</td>
-          <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('contact_edit.html')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" /></td>
-          <td>2013-12-22</td>
-          <td>友谊宾馆</td>
-          <td>签订意向协议</td>
-          <td>.....</td>
-          <td>主办单位：计算机报社</td>
-          <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('contact_edit.html')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" /></td>
-          <td>2013-12-22</td>
-          <td>友谊宾馆</td>
-          <td>签订意向协议</td>
-          <td>.....</td>
-          <td>主办单位：计算机报社</td>
-          <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('contact_edit.html')" /><img title="删除" src="../../images/cross.png" class="op_button close" /></td>
-        </tr>
+      <tbody id="tid">
+
       </tbody>
     </table>
   </div>
-  <div class="position"> 
-  	共59条记录&nbsp;每页10条&nbsp;第1页/共5页 
-    <a href="#" title="首页">&laquo;首页</a><a href="#" title="上一页">&laquo; 上一页</a> <a href="#" class="number current" title="1">1</a> <a href="#" class="number" title="2">2</a> <a href="#" class="number" title="3">3</a> <a href="#" class="number" title="4">4</a> <a href="#" title="下一页">下一页&raquo;</a><a href="#" title="末页">末页&raquo;</a> 转到&nbsp;
-    <input value="1" size="2" />
-    &nbsp;页<a href="#">GO</a>
-    </li>
+  <div class="wrapper">
+    <div class="M-box"></div>
   </div>
 </div>
+
+
+
+<script type="text/javascript">
+    var param = window.location.search;
+    // alert(param);
+    //切割字符串
+    var newstr =  param.slice(param.indexOf("=")+1,param.length);
+    // alert(newstr);
+    $(function(){
+        loadData(1);
+    })
+
+    function loadData(page){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/activity/list.do?page="+page,
+            data:{cstno:newstr},
+            dataType:"json",
+            success:function(data){
+                // alert(data.code);
+                if(data.code == 1){
+
+                    $("#tid").empty();
+                    var total = data.info.total;
+
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage =Math.ceil(total/5);//向上取整
+                    var pno = page;
+                    //总条数
+                    var infos = data.info.rows;
+                    // alert(infos);
+                    $(infos).each(function(){
+                        // var no = this.custNo;
+                        // alert(this.atvDate);
+                        var html = "<tr>";
+                        html+='   <td><input type="checkbox" /></td>';
+                        html+='   <td>'+this.atvDate+'</td>';
+                        html+='   <td>'+this.atvPlace+'</td>';
+                        html+='   <td>'+this.atvTitle+'</td>';
+                        html+='   <td>'+this.atvDesc+'</td>';
+                        html+='<td><a href="contact_edit.html?atvId='+this.atvId+'"><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" /></a><a onclick="javascript:delactivity('+this.atvId+')"><img title="删除" src="../../images/cross.png" class="op_button close" /></a></td>';
+                        html+='</tr>';
+                        $("#tid").append($(html));
+
+                        //分页设置
+                        $('.M-box').pagination({
+                            pageCount: totalPage,  // 总页数
+                            current:pno,//当前第几页
+                            jump: true,  // 是否显示跳转相关元素
+                            jumpBtn: 'go', // 跳转按钮显示文字
+                            coping: true,    //是否显示首页末页
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '<<',  // 上一页功能 显示文字信息
+                            nextContent: '>>',
+                            callback:function(index){
+                                //$('.now').text(index.getCurrent());
+                                // 该回调函数用到的当前页是根据实际操作计算得到
+                                loadData(index.getCurrent());//获取当前页
+                            }
+                        });
+                    })
+                }
+            }
+
+        })
+    }
+</script>
+<!-- 新建 -->
+<script type="text/javascript">
+   // <!-- 新建 -->
+  function add(){
+      window.location.href="contact_add.html"+param;
+  }
+  //删除
+  function delactivity(id){
+      $.ajax({
+          type:"get",
+          url:"/crmsys/activity/delete.do"+param+"&atvId="+id,
+          dataType:"json",
+          success:function(data){
+              if(data.code==1){
+                  alert("删除成功");
+                  window.location.reload();
+              }
+          }
+      })
+  }
+</script>
+
 </body>
 </html>

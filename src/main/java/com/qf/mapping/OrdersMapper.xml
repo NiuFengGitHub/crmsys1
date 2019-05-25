@@ -12,7 +12,7 @@
     odr_id, odr_customer_no, odr_date, odr_addr, odr_status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from orders
     where odr_id = #{odrId,jdbcType=INTEGER}
@@ -90,4 +90,11 @@
       odr_status = #{odrStatus,jdbcType=INTEGER}
     where odr_id = #{odrId,jdbcType=INTEGER}
   </update>
+
+  <!-- 查询所有-->
+  <select id="findAll" parameterType="string" resultType="com.qf.entity.Orders">
+
+   select * from orders  where odr_customer_no = #{custNo}
+
+  </select>
 </mapper>

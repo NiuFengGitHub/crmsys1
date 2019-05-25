@@ -1,14 +1,16 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>客户开发计划</title>
-<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="../../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
-<script type="text/javascript" src="../../js/javascript.js"></script>
-<script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>客户开发计划</title>
+  <link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/style.css" rel="stylesheet" type="text/css" />
+  <link href="../../css/pagination.css" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="../../js/jquery-1.12.4.js"></script>
+  <script type="text/javascript" src="../../js/jquery.pagination.js"></script>
+  <script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
+  <script type="text/javascript" src="../../js/javascript.js"></script>
+  <script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
 
 </head>
 
@@ -21,54 +23,108 @@
     <a href="#" title="返回" onclick="back()">返回</a>
   </div>
   <table border="0" cellpadding="0" cellspacing="0" class="table_show txt">
-        <tr>
-          <td width="100" align="center">订单编号：</td>
-          <td width="200">1343445</td>
-          <td width="100" align="center">日期：</td>
-          <td width="200">2013-12-24</td>
-        </tr>
-        <tr>
-          <td width="100" align="center">送货地址：</td>
-          <td width="200">北京海淀区劳动路205号</td>
-          <td width="100" align="center">总金额（元）：</td>
-          <td width="200">55200</td>
-        </tr>
-        <tr>
-          <td width="100" align="center">状态：</td>
-          <td width="200">完成</td>
-          <td width="100" align="center"></td>
-          <td width="200"></td>
-        </tr>
+    <tr>
+      <td width="100" align="center">订单编号：</td>
+      <td width="200">1343445</td>
+      <td width="100" align="center">日期：</td>
+      <td width="200">2013-12-24</td>
+    </tr>
+    <tr>
+      <td width="100" align="center">送货地址：</td>
+      <td width="200">北京海淀区劳动路205号</td>
+      <td width="100" align="center">总金额（元）：</td>
+      <td width="200">55200</td>
+    </tr>
+    <tr>
+      <td width="100" align="center">状态：</td>
+      <td width="200">完成</td>
+      <td width="100" align="center"></td>
+      <td width="200"></td>
+    </tr>
   </table>
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
       <thead>
-        <tr>
-          <th width="30%">商品</th>
-          <th width="10%">数量</th>
-          <th width="20%">单位</th>
-          <th width="20%">单价（元）</th>
-          <th width="20%">金额（元）</th>
-        </tr>
+      <tr>
+        <th width="30%">商品</th>
+        <th width="10%">数量</th>
+        <th width="20%">单位</th>
+        <th width="20%">单价（元）</th>
+        <th width="20%">金额（元）</th>
+      </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>海龙笔记本电脑-i60-2688 9966</td>
-          <td>2</td>
-          <td>台</td>
-          <td>10000</td>
-          <td>20000</td>
-        </tr>
+      <tbody id="tid">
+      <tr>
+        <td>海龙笔记本电脑-i60-2688 9966</td>
+        <td>2</td>
+        <td>台</td>
+        <td>10000</td>
+        <td>20000</td>
+      </tr>
       </tbody>
     </table>
   </div>
-  <div class="position"> 
-  	共59条记录&nbsp;每页10条&nbsp;第1页/共5页 
-    <a href="#" title="首页">&laquo;首页</a><a href="#" title="上一页">&laquo; 上一页</a> <a href="#" class="number current" title="1">1</a> <a href="#" class="number" title="2">2</a> <a href="#" class="number" title="3">3</a> <a href="#" class="number" title="4">4</a> <a href="#" title="下一页">下一页&raquo;</a><a href="#" title="末页">末页&raquo;</a> 转到&nbsp;
-    <input value="1" size="2" />
-    &nbsp;页<a href="#">GO</a>
-    </li>
-  </div>
 </div>
+
+<div class="wrapper">
+  <div class="M-box"></div>
+</div>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        loadData(1);
+    })
+    var param = window.location.search;
+    function loadData(page) {
+        $.ajax({
+            type: "get",
+            url: "/crmsys/orderdetail/list.do" + param,
+            data: {page: page},
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    $("#tid").empty();
+                    var total = data.info.total;
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage = Math.ceil(total / 5);//向上取整
+                    var pno = page;
+                    //总条数
+                    var infos = data.info.rows;
+                    $(infos).each(function() {
+                        var index = index + 1;
+                        var html = '<tr>\n' +
+                            // '        <td><input type="checkbox" /></td>\n' +
+                            '        <td>' + this.prodName + '</td>\n' +
+                            '        <td>' + this.count + '</td>\n' +
+                            '        <td>' + this.unit + '</td>\n' +
+                            '        <td>' + this.price + '</td>\n' +
+                            '        <td>' + (this.price)*(this.count)+ '</td>\n' ;
+                        $("#tid").append($(html));
+
+                    })
+                    //分页设置
+                    $('.M-box').pagination({
+                        pageCount: totalPage,  // 总页数
+                        current: pno,//当前第几页
+                        jump: true,  // 是否显示跳转相关元素
+                        jumpBtn: 'go', // 跳转按钮显示文字
+                        coping: true,    //是否显示首页末页
+                        homePage: '首页',
+                        endPage: '末页',
+                        prevContent: '<<',  // 上一页功能 显示文字信息
+                        nextContent: '>>',
+                        callback: function (index) {
+                            //$('.now').text(index.getCurrent());
+                            // 该回调函数用到的当前页是根据实际操作计算得到
+                            loadData(index.getCurrent());//获取当前页
+                        }
+                    });
+                }
+            }
+        })
+    }
+
+</script>
 </body>
 </html>

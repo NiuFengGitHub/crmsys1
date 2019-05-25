@@ -141,7 +141,7 @@
   </update>
 
   <select id="findAll" parameterType="string" resultType="com.qf.entity.CstLinkman">
-    select * from cst_linkman where lkm_cust_no=#{no}
+    select * from cst_linkman where lkm_cust_no=#{no} and lkm_flag = 0
 
   </select>
 </mapper>

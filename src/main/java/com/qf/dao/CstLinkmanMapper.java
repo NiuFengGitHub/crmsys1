@@ -10,7 +10,7 @@ public interface CstLinkmanMapper {
     int insert(CstLinkman record);
 
     int insertSelective(CstLinkman record);
-
+    //更新的时候绑定数据
     CstLinkman selectByPrimaryKey(Integer lkmId);
 
     int updateByPrimaryKeySelective(CstLinkman record);
