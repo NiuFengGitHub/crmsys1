@@ -1,11 +1,10 @@
 package com.qf.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.qf.entity.SysUser;
 import com.qf.vo.VUser;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface SysUserMapper {
     int deleteByPrimaryKey(Integer usrId);
@@ -36,6 +35,10 @@ public interface SysUserMapper {
     
     //查找客户经理
     public List<SysUser> findByRoleId();
+
+    //找销售经理
+    public List<SysUser> findSaleRole();
+
     
     
 }

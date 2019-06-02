@@ -146,6 +146,10 @@
 	<select id="findByRoleId" resultType="com.qf.entity.SysUser">
 		select * from sys_user where usr_role_id = 2 
 	</select>
+
+    <select id="findSaleRole" resultType="com.qf.entity.SysUser">
+        select * from sys_user where usr_role_id = 3
+    </select>
 </mapper>
 
 

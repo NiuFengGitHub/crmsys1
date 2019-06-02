@@ -1,8 +1,8 @@
 package com.qf.entity;
 
-import java.util.Date;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+
+import java.util.Date;
 
 public class SalChance {
     private Integer chcId;
@@ -29,7 +29,7 @@ public class SalChance {
     private Date chcCreateDate;
 
     private Integer chcDueId;
-
+    @JsonFormat(pattern="yyyy-MM-dd " ,timezone="GMT+8")
     private Date chcDueDate;
 
     private Integer chcStatus;

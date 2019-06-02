@@ -104,7 +104,12 @@
     where pla_id = #{plaId,jdbcType=INTEGER}
   </update>
   
-  <select id="findAll" resultType="com.qf.entity.CstPlan">
-  	select * from cst_plan
+  <!--<select id="findAll" resultType="com.qf.entity.CstPlan">-->
+  	<!--select * from cst_plan-->
+  <!--</select>-->
+
+  <!--  查询所有开发计划（客户开发计划中）,根据当前人的id去获取-->
+  <select id="findAll" parameterType="int" resultType="com.qf.vo.VPlan">
+    select chc_id id,chc_cusr_name custName,chc_title svrtitle,chc_linkman linkman,chc_tel phone ,chc_create_date createtime,chc_status status from sal_chance  where chc_create_id = #{id}
   </select>
 </mapper>

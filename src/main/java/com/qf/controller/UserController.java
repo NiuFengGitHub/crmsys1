@@ -1,17 +1,15 @@
 package com.qf.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.qf.common.JsonBean;
 import com.qf.entity.SysUser;
 import com.qf.service.SysUserService;
 import com.qf.utils.JsonUtils;
-import com.qf.vo.VUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 //作用相当于其他两个@controller + @responseBody
 @RestController
 public class UserController {
@@ -60,6 +58,14 @@ public class UserController {
 	public JsonBean searchByRoleId() {
 		List<SysUser> list = userService.findUserByRoleId();
 		return JsonUtils.createJsonBean(1, list);
+	}
+
+	//销售经理加载
+	@RequestMapping("/saleRole/list.do")
+	public JsonBean searchSaleRole(){
+		List<SysUser> list = userService.searchSaleRole();
+		return JsonUtils.createJsonBean(1,list);
+
 	}
 	
 

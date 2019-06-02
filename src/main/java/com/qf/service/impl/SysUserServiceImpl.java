@@ -1,19 +1,18 @@
 package com.qf.service.impl;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qf.dao.SysUserMapper;
 import com.qf.entity.SysUser;
 import com.qf.service.SysUserService;
 import com.qf.vo.VUser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
@@ -23,6 +22,9 @@ public class SysUserServiceImpl implements SysUserService {
 	public SysUser login(String name, String password) {
 		// TODO Auto-generated method stub
 		SysUser user = userDao.selectByName(name);
+		if(user==null){
+			throw  new RuntimeException("用户不存在,请检查用户名是否输入正确");
+		}
 		if(!user.getUsrPassword().equals(password)) {
 			throw new RuntimeException("密码错误");
 		}
@@ -102,6 +104,11 @@ public class SysUserServiceImpl implements SysUserService {
 	public List<SysUser> findUserByRoleId() {
 		// TODO Auto-generated method stub
 		return userDao.findByRoleId();
+	}
+	//销售经理
+	@Override
+	public List<SysUser> searchSaleRole() {
+		return userDao.findSaleRole();
 	}
 
 }

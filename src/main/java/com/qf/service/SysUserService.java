@@ -1,10 +1,10 @@
 package com.qf.service;
 
-import java.util.List;
-import java.util.Map;
-
 import com.qf.entity.SysUser;
 import com.qf.vo.VUser;
+
+import java.util.List;
+import java.util.Map;
 
 public interface SysUserService {
 	public SysUser login(String name, String password);
@@ -25,5 +25,8 @@ public interface SysUserService {
 	
 	//创建销售机会的时候，找所有的客户经理，进行机会分配
 	public List<SysUser> findUserByRoleId();
+
+	//制定开发计划的时候，找所有的销售经理，进行机会分配
+	public List<SysUser> searchSaleRole();
 
 }
