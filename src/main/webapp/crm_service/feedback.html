@@ -41,7 +41,7 @@
           <td>客户</td>
           <td  name="custname" id="custname"></td>
           <td>状态</td>
-          <td>已分配</td>
+          <td name="status" id="status"></td>
         </tr>
         <tr>
           <td>服务请求</td>
@@ -111,6 +111,7 @@
                     $("#distributename").html(infos.distributename);
                     $("#deal").html(infos.deal);
                     $("#makePerson").val(infos.distributename);
+                    $("#status").html(infos.status);
                 }
             }
         })

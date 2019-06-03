@@ -18,10 +18,20 @@ public class VService {
     private String svrtitle;
     //服务类型
     private String sertype;
+    //服务状态
+    private String status;
     private String createname;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createtime;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public Integer getId() {
         return id;

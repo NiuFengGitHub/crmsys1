@@ -45,6 +45,17 @@ public class VServicedeal {
     //满意度
     private Integer satify;
 
+    //服务状态
+    private String status;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public String getRequest() {
         return request;
     }

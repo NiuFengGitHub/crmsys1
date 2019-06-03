@@ -1,7 +1,8 @@
 package com.qf.controller;
 
 import com.qf.common.JsonBean;
-import com.qf.service.CstServices;
+import com.qf.entity.Cstservice;
+import com.qf.service.CstServiceService;
 import com.qf.utils.JsonUtils;
 import com.qf.vo.VService;
 import com.qf.vo.VServicedeal;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 /**
@@ -19,7 +21,7 @@ import java.util.Map;
 public class CstController {
 
     @Autowired
-    private CstServices cstServices;
+    private CstServiceService cstServices;
     @RequestMapping("service/list.do")
     public JsonBean findList(int page){
         Map<String, Object> allService = cstServices.findAllService(page);
@@ -42,11 +44,18 @@ public class CstController {
     //条件查询
     @RequestMapping("service/searchByCondition.do")
     public JsonBean searchByCondition(int page, VService vService){
-        System.out.println(vService.getCustname());
-        System.out.println(vService.getSertype());
-        System.out.println(vService.getCreatetime());
+//        System.out.println(vService.getCustname());
+//        System.out.println(vService.getSertype());
+//        System.out.println(vService.getCreatetime());
         Map<String, Object> map = cstServices.searchByCondition(page, vService);
 
         return JsonUtils.createJsonBean(1,map);
+    }
+
+    //添加
+    @RequestMapping("service/add.do")
+    public JsonBean add(Cstservice cstservice, HttpSession session){
+        cstServices.add(cstservice,session);
+        return JsonUtils.createJsonBean(1,null);
     }
 }

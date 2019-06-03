@@ -1,11 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>服务管理</title>
-<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/javascript.js"></script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>服务管理</title>
+  <link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <link href="../css/pagination.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+  <script type="text/javascript"
+          src="../js/simpla.jquery.configuration.js"></script>
+  <script type="text/javascript" src="../js/javascript.js"></script>
+  <script type="text/javascript" src="../js/vue.min.js"> </script>
+  <script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
 </head>
 
 <body>
@@ -14,43 +21,84 @@
     <hr class="hr1" />
   </div>
   <div class="operation_button">
-    <a href="#" title="保存" onclick="save('保存','add.html');">保存</a>
+    <a href="#" onclick="javascript:add()">保存</a>
   </div>
   <div class="out_bg">
     <div class="in_bg">
-      <table border="0" cellpadding="0" cellspacing="0" class="table_input txt">
-        <tr>
-          <td width="126">编号</td>
-          <td width="411"><input type="text" value="1" disabled="disabled" /></td>
-          <td width="126">创建人</td>
-          <td width="442"><input type="text" value="Mr.Shi" disabled="disabled" /></td>
-        </tr>
-        <tr>
-          <td>创建时间</td>
-          <td><input type="text" value="2013-12-12" disabled="disabled" /></td>
-          <td>状态</td>
-          <td>新创建</td>
-        </tr>
-        <tr>
-          <td>客户</td>
-          <td><input type="text" /></td>
-          <td>服务类型</td>
-          <td><select>
-				<option>请选择...</option>
-				<option>咨询</option>
-				<option>投诉</option>
-				<option>建议</option>
-			</select></td>
-        </tr>
-        <tr>
-          <td valign="top">服务请求</td>
-          <td><textarea rows="6" cols="36" /></textarea></td>
-          <td></td>
-          <td></td>
-        </tr>
-      </table>
+      <form action="#">
+        <table border="0" cellpadding="0" cellspacing="0" class="table_input txt">
+          <tr>
+            <!--<td width="126">编号</td>-->
+            <!--<td width="411"><input type="text" value="1" disabled="disabled" /></td>-->
+            <td width="126">创建人</td>
+            <td width="442"><input type="text" id="loginName" name="createname" disabled="disabled" /></td>
+          </tr>
+          <tr>
+            <td>概要</td>
+            <td><input type="text" name="svrTitle"/></td>
+            <td>状态</td>
+            <td name="svrStatus">新创建</td>
+          </tr>
+          <tr>
+            <td>客户编号</td>
+            <td><input type="text" name="svrCustNo"/></td>
+            <td>服务类型</td>
+            <td>
+              <select name="svrType">
+              <option>请选择...</option>
+              <option>咨询</option>
+              <option>投诉</option>
+              <option>建议</option>
+            </select></td>
+          </tr>
+          <tr>
+            <td valign="top">服务请求</td>
+            <td><textarea rows="6" cols="36"  name="svrRequest"/></textarea></td>
+
+          </tr>
+        </table>
+      </form>
     </div>
   </div>
 </div>
+<!-- 加载一些固定的信息 -->
+<script type="text/javascript">
+    $(function() {
+        $.ajax({
+            type: "get",
+            url: "/crmsys/getLogin.do",
+            dataType: "json",
+            success: function (data) {
+                if (data.code == 1) {
+                    var infos = data.info;
+                    $("#loginName").val(infos.usrName);
+                } else {
+                    alert(data.info);
+                }
+            }
+
+        })
+    })
+</script>
+
+<!--  执行添加功能-->
+<script type="text/javascript">
+  function add(){
+      $.ajax({
+          type:"get",
+          url:"/crmsys/service/add.do",
+          data:$("form").serialize(),
+          dataType:"json",
+          success:function(data){
+              if(data.code==1){
+                  alert("添加成功");
+              }else{
+                  alert(data.info);
+              }
+          }
+      })
+  }
+
+</script>
 </body>
 </html>

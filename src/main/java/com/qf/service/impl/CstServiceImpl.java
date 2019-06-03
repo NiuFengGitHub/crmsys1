@@ -2,13 +2,19 @@ package com.qf.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.qf.common.CommonInfo;
 import com.qf.dao.CstService;
-import com.qf.service.CstServices;
+import com.qf.dao.CstserviceMapper;
+import com.qf.entity.Cstservice;
+import com.qf.entity.SysUser;
+import com.qf.service.CstServiceService;
 import com.qf.vo.VService;
 import com.qf.vo.VServicedeal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpSession;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,7 +24,10 @@ import java.util.Map;
  * @create 2019-05-21 下午 7:03
  */
 @Service
-public class CstServiceImpl implements CstServices{
+public class CstServiceImpl implements CstServiceService {
+    //自动的
+    @Autowired
+    private CstserviceMapper cstserviceMapper;
 
     @Autowired
     private CstService cstService;
@@ -55,6 +64,17 @@ public class CstServiceImpl implements CstServices{
         map.put("total",count);
         map.put("rows",service);
         return map;
+    }
+
+    @Override
+    public void add(Cstservice cstservice, HttpSession session) {
+        SysUser user = (SysUser) session.getAttribute(CommonInfo.Login_User);
+        cstservice.setSvrCreateId(user.getUsrId());
+        cstservice.setSvrCreateDate(new Date());
+        cstservice.setSvrStatus("新创建");
+        cstservice.setSvrFlag(0);
+        cstserviceMapper.insertSelective(cstservice);
+
     }
 
 
