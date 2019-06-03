@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface CstService {
     List<VService> findService();
-    VServicedeal findByNo(String no);
+    VServicedeal findByNo(Integer id);
+    //更新数据
+    public void update(VServicedeal servicedeal);
 
 }

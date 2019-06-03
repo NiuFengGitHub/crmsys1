@@ -37,7 +37,12 @@ public class CstServiceImpl implements CstServices{
     }
 
     @Override
-    public VServicedeal findByNo(String no) {
-        return cstService.findByNo(no);
+    public VServicedeal findByNo(Integer id) {
+        return cstService.findByNo(id);
+    }
+
+    @Override
+    public void updateById(VServicedeal servicedeal) {
+        cstService.update(servicedeal);
     }
 }

@@ -13,6 +13,9 @@ public interface CstServices {
     //查询所有
     Map<String,Object> findAllService(int page);
     //
-    VServicedeal findByNo(String no);
+    VServicedeal findByNo(Integer id);
+
+    //更新数据
+    public  void updateById(VServicedeal servicedeal);
 
 }

@@ -10,6 +10,9 @@ import java.util.Date;
  * @create 2019-05-20 下午 9:56
  */
 public class VService {
+    //服务编号
+    private Integer id;
+    //客户 编号
     private String svrno;
     private String custname;
     private String svrtitle;
@@ -19,6 +22,14 @@ public class VService {
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date createtime;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getSvrno() {
         return svrno;

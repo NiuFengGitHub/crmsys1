@@ -102,7 +102,7 @@
                         html+='<td>'+this.sertype+'</td>';
                         html+='  <td>'+this.createname+'</td>';
                         html+='  <td> '+this.createtime+'</td>';
-                        html+='<td><img title="处理" src="../images/gear.ico" class="op_button" onclick="to(\'feedback.html\')" /></td>';
+                        html+='<td><a href="feedback.html?id=' +this.id+'"><img title="处理" src="../images/gear.ico" class="op_button"  /></a></td>';
                         html+='</tr>';
                         $("tbody").append($(html));
                         //分页设置

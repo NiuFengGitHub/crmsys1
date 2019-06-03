@@ -24,9 +24,16 @@ public class CstController {
         return JsonUtils.createJsonBean(1,allService);
     }
     @RequestMapping("service/findByNo.do")
-    public JsonBean findDealByNo(String no){
-        VServicedeal byNo = cstServices.findByNo(no);
+    public JsonBean findDealByNo(Integer id){
+        VServicedeal byNo = cstServices.findByNo(id);
         return JsonUtils.createJsonBean(1,byNo);
 
+    }
+
+    //更新数据也就是增加结果信息
+    @RequestMapping("service/deal.do")
+    public JsonBean update(VServicedeal servicedeal){
+        cstServices.updateById(servicedeal);
+        return JsonUtils.createJsonBean(1,null);
     }
 }
