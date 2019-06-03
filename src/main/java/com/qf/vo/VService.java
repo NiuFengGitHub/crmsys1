@@ -13,6 +13,8 @@ public class VService {
     private String svrno;
     private String custname;
     private String svrtitle;
+    //服务类型
+    private String sertype;
     private String createname;
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -56,5 +58,13 @@ public class VService {
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public String getSertype() {
+        return sertype;
+    }
+
+    public void setSertype(String sertype) {
+        this.sertype = sertype;
     }
 }

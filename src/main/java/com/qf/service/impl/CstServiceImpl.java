@@ -28,6 +28,7 @@ public class CstServiceImpl implements CstServices{
     public Map<String, Object> findAllService(int page) {
         PageHelper.startPage(page,5);
         List<VService> service = cstService.findService();
+
         long count = ((Page)service).getTotal();
         Map<String,Object> map = new HashMap<>();
         map.put("total",count);

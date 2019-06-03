@@ -2,10 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.dao.CstService">
   <select id="findService" resultType="com.qf.vo.VService">
-    SELECT cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle, cs.svr_create_date createtime ,su.usr_name createname from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id
+    SELECT cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_status sertype, cs.svr_create_date createtime ,su.usr_name createname from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id
   </select>
   <select id="findByNo" resultType="com.qf.vo.VServicedeal">
-    SELECT cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle, cs.svr_create_date createtime ,su.usr_name createname ,sus.usr_name distributename ,cs.svr_due_date  distributedate ,cs.svr_deal_date dealdate ,cs.svr_result result from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id INNER JOIN sys_user sus ON cs.svr_due_id = sus.usr_id where cs.svr_cust_no = #{no}
+    SELECT cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_status sertype, cs.svr_create_date createtime ,su.usr_name createname ,sus.usr_name distributename ,cs.svr_due_date  distributedate ,cs.svr_deal_date dealdate ,cs.svr_result result from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id INNER JOIN sys_user sus ON cs.svr_due_id = sus.usr_id where cs.svr_cust_no = #{no}
   </select>
 </mapper>
 

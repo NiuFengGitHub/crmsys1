@@ -1,8 +1,6 @@
 package com.qf.service;
 
 import com.qf.vo.VServicedeal;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.Map;
 
@@ -12,7 +10,9 @@ import java.util.Map;
  */
 
 public interface CstServices {
+    //查询所有
     Map<String,Object> findAllService(int page);
+    //
     VServicedeal findByNo(String no);
 
 }

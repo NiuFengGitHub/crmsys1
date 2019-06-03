@@ -1,14 +1,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>销售机会列表</title>
-<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
-<script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/simpla.jquery.configuration.js"></script>
-<script type="text/javascript" src="../js/javascript.js"></script>
-<script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>销售机会列表</title>
+  <link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+  <link href="../css/style.css" rel="stylesheet" type="text/css" />
+  <link href="../css/pagination.css" rel="stylesheet" type="text/css"/>
+  <script type="text/javascript" src="../js/jquery.js"></script>
+  <script type="text/javascript" src="../js/jquery.pagination.js"></script>
+  <script type="text/javascript"
+          src="../js/simpla.jquery.configuration.js"></script>
+  <script type="text/javascript" src="../js/javascript.js"></script>
+  <script type="text/javascript" src="../js/vue.min.js"> </script>
+  <script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
 
 </head>
 
@@ -27,10 +31,10 @@
       </li>
       <li>服务类型：
         <select>
-            <option>全部...</option>
-            <option>咨询</option>
-            <option>投诉</option>
-            <option>建议</option>
+          <option>全部...</option>
+          <option>咨询</option>
+          <option>投诉</option>
+          <option>建议</option>
         </select>
       </li>
       <li>创建日期：
@@ -41,72 +45,70 @@
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
       <thead>
-        <tr>
-          <th width="10%">编号</th>
-          <th width="10%">客户名称</th>
-          <th width="25%">概要</th>
-          <th width="10%">服务类型</th>
-          <th width="10%">创建人</th>
-          <th width="15%">创建日期</th>
-          <th width="10%">操作</th>
-        </tr>
+      <tr>
+        <th width="10%">编号</th>
+        <th width="10%">客户名称</th>
+        <th width="25%">概要</th>
+        <th width="10%">服务类型</th>
+        <th width="10%">创建人</th>
+        <th width="15%">创建日期</th>
+        <th width="10%">操作</th>
+      </tr>
       </thead>
       <tbody>
-  <!--      <tr>
-          <td>1</td>
-          <td><a href="#">太阳药业</a></td>
-          <td>询问我公司倒闭时间</td>
-          <td>咨询</td>
-          <td>小明</td>
-          <td>2007-12-6</td>
-          <td><img title="处理" src="../images/gear.ico" class="op_button" onclick="to('feedback.html')" /></td>
-        </tr>-->
+      <!--      <tr>
+              <td>1</td>
+              <td><a href="#">太阳药业</a></td>
+              <td>询问我公司倒闭时间</td>
+              <td>咨询</td>
+              <td>小明</td>
+              <td>2007-12-6</td>
+              <td><img title="处理" src="../images/gear.ico" class="op_button" onclick="to('feedback.html')" /></td>
+            </tr>-->
 
       </tbody>
     </table>
   </div>
+  <div class="wrapper">
+    <div class="M-box"></div>
+  </div>
 
 </div>
-<script type="text/javascript">
-    function search(){
-        loadInfo(1);
 
-    }
-    function loadInfo(page1){
+<script type="text/javascript">
+    $(function(){
+        loadData(1);
+    })
+    function loadData(page){
         $.ajax({
-            type:"get",
-            url:"/crmsys/cus/search.do?page="+page1,
+            type:"post",
+            url:"/crmsys/service/list.do?page="+page,
             dataType:"json",
             success:function(data){
                 if(data.code == 1){
-                    var total = data.info.total;
-                    //Math.ceil向上取整，Math.floor  向下取整
-                    var totalPage1 =Math.ceil(total/5);//向上取整s
-                    var pno1 = page1;
-                    //总条数
-                    var infos = data.info.list;
                     $("tbody").empty();
-                    $(infos).each(function(){
+                    var infos = data.info.rows;
+                    var total = data.info.total;
+                    var totalPage = Math.ceil(total/5);
+                    var pno = page;
+                    $(infos).each(function(index){
+                        // alert(this.types);
+                        var index=index+1;
 
-                        var html = '<tr>';
-                        html +='<td>'+index+'</td>';
-                        html +=' <td><a href="#">'+this.svrno+'</a></td>';
-                        html +=' <td>'+this.svrtitle+'</td>';
-                        html +='  <td>咨询</td>';
-                        html +='  <td>'+this.createname+'</td>';
-                        html +='  <td>'+this.createtime+'</td>';
-                        html +='  <td><a href='feedback.html?no='+'+this.svrno+'><img title="处理" src="../images/gear.ico" class="op_button" " /></a></td>';
-                        html +='   </tr>';
-                        }
-//
-//                        index++;
-//                        html+='</tr>';
+                        var html=' <tr>';
+                        html+='  <td>'+index+'</td>';
+                        html+='  <td><a href="#">'+this.custname+'</a></td>';
+                        html+='  <td>'+this.svrtitle+'</td>';
+                        html+='<td>'+this.sertype+'</td>';
+                        html+='  <td>'+this.createname+'</td>';
+                        html+='  <td> '+this.createtime+'</td>';
+                        html+='<td><img title="处理" src="../images/gear.ico" class="op_button" onclick="to(\'feedback.html\')" /></td>';
+                        html+='</tr>';
                         $("tbody").append($(html));
-
                         //分页设置
                         $('.M-box').pagination({
-                            pageCount: totalPage1,  // 总页数
-                            current:pno1,//当前第几页
+                            pageCount: totalPage,  // 总页数
+                            current:pno,//当前第几页
                             jump: true,  // 是否显示跳转相关元素
                             jumpBtn: 'go', // 跳转按钮显示文字
                             coping: true,    //是否显示首页末页
@@ -117,20 +119,15 @@
                             callback:function(index){
                                 //$('.now').text(index.getCurrent());
                                 // 该回调函数用到的当前页是根据实际操作计算得到
-                                loadInfo(index.getCurrent());//获取当前页
+                                loadData(index.getCurrent());//获取当前页
                             }
                         });
                     })
                 }
+
             }
         })
-
     }
-
-
-
-
-
 </script>
 </body>
 </html>
