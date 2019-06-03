@@ -15,4 +15,7 @@ public interface CstService {
     //更新数据
     public void update(VServicedeal servicedeal);
 
+    //条件查询
+    public List<VService> findByCondition(VService vService);
+
 }

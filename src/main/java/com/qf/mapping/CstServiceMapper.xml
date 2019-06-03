@@ -21,6 +21,27 @@
         </set>
         where svr_id = #{id}
     </update>
+
+    <!-- 条件查询 -->
+    <select id="findByCondition" parameterType="com.qf.vo.VService" resultType="com.qf.vo.VService">
+        SELECT cs.svr_id id,cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_status sertype, cs.svr_create_date createtime ,su.usr_name createname
+        from cst_service cs
+        INNER JOIN cst_customer cc
+        ON cs.svr_cust_no = cc.cust_no
+        INNER JOIN sys_user su
+        ON cs.svr_create_id = su.usr_id
+        <where>
+            <if test="custname!='' ">
+                and cc.cust_name like '%${custname}%'
+            </if>
+            <if test="sertype!='全部...'">
+                and cs.svr_status = #{sertype}
+            </if>
+            <if test="createtime!=null">
+                and DATEDIFF(svr_create_date,#{createtime})=0
+            </if>
+        </where>
+    </select>
 </mapper>
 
 

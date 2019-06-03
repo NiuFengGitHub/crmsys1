@@ -1,5 +1,6 @@
 package com.qf.service;
 
+import com.qf.vo.VService;
 import com.qf.vo.VServicedeal;
 
 import java.util.Map;
@@ -17,5 +18,8 @@ public interface CstServices {
 
     //更新数据
     public  void updateById(VServicedeal servicedeal);
+
+    //条件查询
+    public Map<String,Object> searchByCondition(int page,VService vService);
 
 }

@@ -22,25 +22,27 @@
     <hr class="hr1" />
   </div>
   <div class="operation_button">
-    <a href="#" title="查询">查询</a>
+    <a href="javascript:search()" title="查询">查询</a>
   </div>
   <div class="search_input">
-    <ul class="txt">
-      <li>客户名称：
-        <input type="text" size="30" />
-      </li>
-      <li>服务类型：
-        <select>
-          <option>全部...</option>
-          <option>咨询</option>
-          <option>投诉</option>
-          <option>建议</option>
-        </select>
-      </li>
-      <li>创建日期：
-        <input type="text" size="30" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" />
-      </li>
-    </ul>
+    <form action="#">
+      <ul class="txt">
+        <li>客户名称：
+          <input type="text" size="30" name="custname" />
+        </li>
+        <li>服务类型：
+          <select name="sertype">
+            <option>全部...</option>
+            <option value="咨询">咨询</option>
+            <option value="投诉">投诉</option>
+            <option value="建议">建议</option>
+          </select>
+        </li>
+        <li>创建日期：
+          <input type="text" size="30" name="createtime" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'}) " />
+        </li>
+      </ul>
+    </form>
   </div>
   <div>
     <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
@@ -120,6 +122,62 @@
                                 //$('.now').text(index.getCurrent());
                                 // 该回调函数用到的当前页是根据实际操作计算得到
                                 loadData(index.getCurrent());//获取当前页
+                            }
+                        });
+                    })
+                }
+
+            }
+        })
+    }
+</script>
+<!--  搜索-->
+<script type="text/javascript">
+   function search() {
+       loadInfo(1);
+   }
+    function loadInfo(page){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/service/searchByCondition.do?page="+page,
+            data:$("form").serialize(),
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    $("tbody").empty();
+                    var infos = data.info.rows;
+                    var total = data.info.total;
+                    var totalPage = Math.ceil(total/5);
+                    var pno = page;
+                    $(infos).each(function(index){
+                        // alert(this.types);
+                        var index=index+1;
+
+                        var html=' <tr>';
+                        html+='  <td>'+index+'</td>';
+                        html+='  <td><a href="#">'+this.custname+'</a></td>';
+                        html+='  <td>'+this.svrtitle+'</td>';
+                        html+='<td>'+this.sertype+'</td>';
+                        html+='  <td>'+this.createname+'</td>';
+                        html+='  <td> '+this.createtime+'</td>';
+                        html+='<td><a href="feedback.html?id=' +this.id+'"><img title="处理" src="../images/gear.ico" class="op_button"  /></a></td>';
+                        html+='</tr>';
+                        $("tbody").append($(html));
+                        //分页设置
+                        $('.M-box').pagination({
+                            pageCount: totalPage,  // 总页数
+                            current:pno,//当前第几页
+                            jump: true,  // 是否显示跳转相关元素
+                            jumpBtn: 'go', // 跳转按钮显示文字
+                            coping: true,    //是否显示首页末页
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '<<',  // 上一页功能 显示文字信息
+                            nextContent: '>>',
+                            callback:function(index){
+                                //$('.now').text(index.getCurrent());
+                                // 该回调函数用到的当前页是根据实际操作计算得到
+                                loadInfo(index.getCurrent());//获取当前页
                             }
                         });
                     })

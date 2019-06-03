@@ -45,4 +45,17 @@ public class CstServiceImpl implements CstServices{
     public void updateById(VServicedeal servicedeal) {
         cstService.update(servicedeal);
     }
+
+    @Override
+    public Map<String, Object> searchByCondition(int page, VService vService) {
+        PageHelper.startPage(page,5);
+        List<VService> service = cstService.findByCondition(vService);
+        long count = ((Page)service).getTotal();
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",count);
+        map.put("rows",service);
+        return map;
+    }
+
+
 }
