@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpSession;
 
 import  com.qf.service.CstPlanService;
@@ -53,7 +54,16 @@ public class CstPlanController {
 		salChance.setChcStatus(3);
 		planService.update(salChance);
 		return JsonUtils.createJsonBean(1,null);
+	}
 
+	//条件查询
+	@RequestMapping("/plan/search.do")
+	public JsonBean findByCondition(int page,SalChance salChance,HttpSession session){
+		System.out.println(salChance.getChcCusrName());
+		System.out.println(salChance.getChcLinkman());
+		System.out.println(salChance.getChcCreateDate());
+		Map<String, Object> map  = planService.findByCondition(page, session, salChance);
+		return JsonUtils.createJsonBean(1,map);
 	}
 
 }

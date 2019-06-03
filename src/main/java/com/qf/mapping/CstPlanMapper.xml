@@ -13,7 +13,7 @@
     pla_id, pla_chc_id, pla_date, pla_todo, pla_result, pla_flag
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from cst_plan
     where pla_id = #{plaId,jdbcType=INTEGER}
@@ -94,6 +94,33 @@
     </set>
     where pla_id = #{plaId,jdbcType=INTEGER}
   </update>
+  <select id="searchByCondition" parameterType="com.qf.entity.SalChance" resultType="com.qf.vo.VPlan">
+    select chc_id id,chc_cusr_name custName,chc_title svrtitle,chc_linkman linkman,chc_tel phone ,chc_create_date createtime,chc_status status from sal_chance
+    <where>
+      <if test="chcCusrName!='' ">
+        and chc_cusr_name = #{chcCusrName}
+      </if>
+      <if test="chcLinkman!=''">
+        and chc_linkman = #{chcLinkman}
+      </if>
+      <if test="chcCreateDate!=null">
+        and chc_create_date= #{chcCreateDate}
+      </if>
+      <if test="chcCreateId!=null">
+        and    chc_create_id = #{chcCreateId}
+      </if>
+    </where>
+
+
+
+
+  </select>
+
+  <!--<select id="findAll" resultType="com.qf.entity.CstPlan">-->
+  <!--select * from cst_plan-->
+  <!--</select>-->
+
+  <!--  查询所有开发计划（客户开发计划中）,根据当前人的id去获取-->
   <update id="updateByPrimaryKey" parameterType="com.qf.entity.CstPlan">
     update cst_plan
     set pla_chc_id = #{plaChcId,jdbcType=INTEGER},
@@ -103,12 +130,8 @@
       pla_flag = #{plaFlag,jdbcType=INTEGER}
     where pla_id = #{plaId,jdbcType=INTEGER}
   </update>
-  
-  <!--<select id="findAll" resultType="com.qf.entity.CstPlan">-->
-  	<!--select * from cst_plan-->
-  <!--</select>-->
 
-  <!--  查询所有开发计划（客户开发计划中）,根据当前人的id去获取-->
+  <!-- 条件查询 -->
   <select id="findAll" parameterType="int" resultType="com.qf.vo.VPlan">
     select chc_id id,chc_cusr_name custName,chc_title svrtitle,chc_linkman linkman,chc_tel phone ,chc_create_date createtime,chc_status status from sal_chance  where chc_create_id = #{id}
   </select>

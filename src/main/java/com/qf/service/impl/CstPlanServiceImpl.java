@@ -53,4 +53,18 @@ public class CstPlanServiceImpl implements CstPlanService {
 	public int update(SalChance salChance) {
 		return salChanceDao.updateByPrimaryKeySelective(salChance);
 	}
+
+	@Override
+	public Map<String, Object> findByCondition(int page, HttpSession session, SalChance salChance) {
+		SysUser user = (SysUser) session.getAttribute(CommonInfo.Login_User);
+		PageHelper.startPage(page,5);
+		Integer id = user.getUsrId();
+		salChance.setChcCreateId(id);
+;		List<VPlan> list = planDao.searchByCondition(salChance);
+		long total = ((Page) list).getTotal();
+		Map<String,Object> map = new HashMap<>();
+		map.put("total",total);
+		map.put("rows",list);
+		return map;
+	}
 }

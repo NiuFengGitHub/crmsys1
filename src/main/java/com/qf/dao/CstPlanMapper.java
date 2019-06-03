@@ -1,6 +1,7 @@
 package com.qf.dao;
 
 import com.qf.entity.CstPlan;
+import com.qf.entity.SalChance;
 import com.qf.vo.VPlan;
 
 import java.util.List;
@@ -23,5 +24,8 @@ public interface CstPlanMapper {
 
     //查询所有开发计划（客户开发计划中）,根据当前人的id去获取
     public List<VPlan> findAll(int id);
+
+    //条件查询
+    public List<VPlan> searchByCondition(SalChance salChance);
     
 }

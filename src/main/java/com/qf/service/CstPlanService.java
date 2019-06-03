@@ -13,6 +13,9 @@ public interface CstPlanService {
 
 	//更新(制定计划)
 	public int update(SalChance salChance);
+
+	//查询
+	public Map<String,Object> findByCondition(int page,HttpSession session,SalChance salChance);
 	
 
 }
