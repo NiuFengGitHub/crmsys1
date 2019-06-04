@@ -69,6 +69,11 @@
             </if>
         </where>
     </select>
+
+    <select id="findAllTable" resultType="com.qf.vo.VTableService">
+        select svr_type type,count(*) num from cst_service GROUP BY svr_type
+
+    </select>
 </mapper>
 
 

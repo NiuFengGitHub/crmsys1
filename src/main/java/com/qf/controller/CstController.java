@@ -82,4 +82,12 @@ public class CstController {
         return JsonUtils.createJsonBean(1,null);
     }
 
+    //统计 报表
+    @RequestMapping("/service/table.do")
+    public  JsonBean findTable(int page){
+        Map<String, Object> map = cstServices.searchAllTable(page);
+        return JsonUtils.createJsonBean(1,map);
+
+    }
+
 }

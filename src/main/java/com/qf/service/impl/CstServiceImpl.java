@@ -10,6 +10,7 @@ import com.qf.entity.SysUser;
 import com.qf.service.CstServiceService;
 import com.qf.vo.VService;
 import com.qf.vo.VServicedeal;
+import com.qf.vo.VTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -102,6 +103,17 @@ public class CstServiceImpl implements CstServiceService {
         System.out.println(cstservice.getSvrDealDate());
         cstserviceMapper.updateByPrimaryKeySelective(cstservice);
 
+    }
+
+    @Override
+    public Map<String, Object> searchAllTable(int page) {
+        PageHelper.startPage(page,5);
+        List<VTableService> list = cstService.findAllTable();
+        long total = ((Page) list).getTotal();
+        Map<String,Object> map = new HashMap<>();
+        map.put("total",total);
+        map.put("rows",list);
+        return map;
     }
 
 

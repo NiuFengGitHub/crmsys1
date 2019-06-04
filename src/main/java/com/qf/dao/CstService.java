@@ -2,6 +2,7 @@ package com.qf.dao;
 
 import com.qf.vo.VService;
 import com.qf.vo.VServicedeal;
+import com.qf.vo.VTableService;
 
 import java.util.List;
 
@@ -17,5 +18,8 @@ public interface CstService {
 
     //条件查询
     public List<VService> findByCondition(VService vService);
+
+    //统计报表
+    public List<VTableService> findAllTable();
 
 }

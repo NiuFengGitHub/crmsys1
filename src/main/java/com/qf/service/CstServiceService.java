@@ -37,4 +37,7 @@ public interface CstServiceService {
     //服务处理
     public void deal(Cstservice cstservice);
 
+    //统计报表
+    public Map<String,Object> searchAllTable(int page);
+
 }
