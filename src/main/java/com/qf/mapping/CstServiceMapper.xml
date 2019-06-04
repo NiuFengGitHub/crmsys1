@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.qf.dao.CstService">
     <select id="findService" resultType="com.qf.vo.VService">
-    SELECT cs.svr_id id,cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_type sertype, cs.svr_create_date createtime ,su.usr_name createname from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id
+    SELECT cs.svr_id id,cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_type sertype, cs.svr_create_date createtime ,su.usr_name createname from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id where cs.svr_flag = 0
   </select>
     <select id="findByNo" resultType="com.qf.vo.VServicedeal">
    SELECT cs.svr_id id,cs.svr_cust_no svrno , cc.cust_name custname, cs.svr_request request, cs.svr_title svrtitle,cs.svr_type sertype,cs.svr_status status ,cs.svr_create_date createtime ,su.usr_name createname ,sus.usr_name distributename ,cs.svr_due_date  distributedate ,cs.svr_deal_date dealdate ,cs.svr_deal deal,cs.svr_result result  from cst_service cs INNER JOIN cst_customer cc ON cs.svr_cust_no = cc.cust_no INNER JOIN sys_user su ON cs.svr_create_id = su.usr_id INNER JOIN sys_user sus ON cs.svr_due_id = sus.usr_id where cs.svr_id=#{id}
@@ -24,7 +24,7 @@
 
     <!-- 条件查询 -->
     <select id="findByCondition" parameterType="com.qf.vo.VService" resultType="com.qf.vo.VService">
-        SELECT cs.svr_id id,cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_status sertype, cs.svr_create_date createtime ,su.usr_name createname
+        SELECT cs.svr_id id,cs.svr_cust_no svrno , cc.cust_name custname,  cs.svr_title svrtitle,cs.svr_type sertype, cs.svr_create_date createtime ,su.usr_name createname
         from cst_service cs
         INNER JOIN cst_customer cc
         ON cs.svr_cust_no = cc.cust_no
@@ -35,10 +35,13 @@
                 and cc.cust_name like '%${custname}%'
             </if>
             <if test="sertype!='全部...'">
-                and cs.svr_status = #{sertype}
+                and cs.svr_type = #{sertype}
             </if>
             <if test="createtime!=null">
                 and DATEDIFF(svr_create_date,#{createtime})=0
+            </if>
+            <if test="1!=2">
+                and cs.svr_flag = 0
             </if>
         </where>
     </select>

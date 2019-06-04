@@ -58,4 +58,28 @@ public class CstController {
         cstServices.add(cstservice,session);
         return JsonUtils.createJsonBean(1,null);
     }
+
+    //创建分配
+    @RequestMapping("service/distribute.do")
+    public JsonBean dis(Cstservice cstservice){
+//        System.out.println(cstservice.getSvrDueId());
+        cstServices.distribute(cstservice);
+        return JsonUtils.createJsonBean(1,null);
+    }
+
+    //删除
+    @RequestMapping("service/del.do")
+    public  JsonBean del(Cstservice cstservice){
+        cstServices.delete(cstservice);
+        return JsonUtils.createJsonBean(1,null);
+    }
+
+    //服务处理
+    @RequestMapping("service/dealService.do")
+    public JsonBean deal(Cstservice cstservice,int id){
+        cstservice.setSvrId(id);
+        cstServices.deal(cstservice);
+        return JsonUtils.createJsonBean(1,null);
+    }
+
 }

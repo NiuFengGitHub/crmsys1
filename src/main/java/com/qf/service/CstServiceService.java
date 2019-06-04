@@ -27,4 +27,14 @@ public interface CstServiceService {
     //添加服务
     public void add(Cstservice cstservice, HttpSession session);
 
+    //创建分配
+    public void distribute(Cstservice cstservice);
+
+
+    //删除服务
+    public void delete(Cstservice cstservice);
+
+    //服务处理
+    public void deal(Cstservice cstservice);
+
 }

@@ -58,6 +58,9 @@ public class CstServiceImpl implements CstServiceService {
     @Override
     public Map<String, Object> searchByCondition(int page, VService vService) {
         PageHelper.startPage(page,5);
+        System.out.println(vService.getCustname());
+        System.out.println(vService.getCreatetime());
+        System.out.println(vService.getSertype());
         List<VService> service = cstService.findByCondition(vService);
         long count = ((Page)service).getTotal();
         Map<String,Object> map = new HashMap<>();
@@ -74,6 +77,28 @@ public class CstServiceImpl implements CstServiceService {
         cstservice.setSvrStatus("新创建");
         cstservice.setSvrFlag(0);
         cstserviceMapper.insertSelective(cstservice);
+
+    }
+    //分配
+    @Override
+    public void distribute(Cstservice cstservice) {
+        cstservice.setSvrDueDate(new Date());
+        cstserviceMapper.updateByPrimaryKeySelective(cstservice);
+
+    }
+
+    @Override
+    public void delete(Cstservice cstservice) {
+        //0为正常状态，1为删除状态
+        cstservice.setSvrFlag(1);
+        cstserviceMapper.updateByPrimaryKeySelective(cstservice);
+    }
+    //f服务处理
+    @Override
+    public void deal(Cstservice cstservice) {
+        cstservice.setSvrDealDate(new Date());
+        System.out.println(cstservice.getSvrDealDate());
+        cstserviceMapper.updateByPrimaryKeySelective(cstservice);
 
     }
 

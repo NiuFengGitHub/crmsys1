@@ -66,8 +66,8 @@
         <tr>
           <td>处理人</td>
           <td><input type="text" id="makePerson" disabled="disabled"/></td>
-          <!--<td>处理时间</td>-->
-          <!--<td><input type="text" value="2012-12-14" disabled="disabled"/></td>-->
+          <td>处理时间</td>
+          <td><input type="text" id="dealdate" disabled="disabled"/></td>
         </tr>
         <form>
           <tr>
@@ -112,6 +112,8 @@
                     $("#deal").html(infos.deal);
                     $("#makePerson").val(infos.distributename);
                     $("#status").html(infos.status);
+                    $("#sertype").html(infos.sertype);
+                    $("#dealdate").val(infos.dealdate);
                 }
             }
         })
