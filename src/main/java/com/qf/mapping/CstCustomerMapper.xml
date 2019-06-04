@@ -327,5 +327,14 @@
   		</if>
 	</where>
   </select>
+
+  <!-- 统计报表 -->
+  <select id="findTable" resultType="com.qf.vo.VTable">
+    select bd.dict_type level,count(*) num from cst_customer  cc
+    INNER JOIN base_dict bd
+    on cc.cust_level = bd.dict_id
+    GROUP BY bd.dict_id
+
+  </select>
   
 </mapper>

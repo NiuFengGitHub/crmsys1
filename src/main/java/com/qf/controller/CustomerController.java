@@ -1,15 +1,14 @@
 package com.qf.controller;
 
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.qf.common.JsonBean;
 import com.qf.entity.CstCustomer;
 import com.qf.service.CustomerService;
 import com.qf.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 @RestController
 public class CustomerController {
@@ -53,5 +52,11 @@ public class CustomerController {
 		cstCustomer.setCustLevel(custLevel);
 		Map<String, Object> map = customerService.searchByCondition(page, cstCustomer);
 		return JsonUtils.createJsonBean(1, map);
+	}
+
+	@RequestMapping("/cus/findTable.do")
+	public  JsonBean findTable(int page){
+		Map<String, Object> map = customerService.searchTable(page);
+		return JsonUtils.createJsonBean(1,map);
 	}
 }

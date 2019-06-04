@@ -1,18 +1,18 @@
 package com.qf.service.impl;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.qf.dao.CstCustomerMapper;
 import com.qf.entity.CstCustomer;
 import com.qf.service.CustomerService;
 import com.qf.vo.VCustomer;
+import com.qf.vo.VTable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -53,6 +53,17 @@ public class CustomerServiceImpl implements CustomerService {
 		Map<String ,Object> map = new HashMap<>();
 		map.put("total", total);
 		map.put("list", list);
+		return map;
+	}
+
+	@Override
+	public Map<String, Object> searchTable(int page) {
+		PageHelper.startPage(page,5);
+		List<VTable> list = customerDao.findTable();
+		long total = ((Page) list).getTotal();
+		Map<String,Object> map = new HashMap<>();
+		map.put("total",total);
+		map.put("rows",list);
 		return map;
 	}
 

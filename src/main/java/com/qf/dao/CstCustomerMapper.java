@@ -1,9 +1,10 @@
 package com.qf.dao;
 
-import java.util.List;
-
 import com.qf.entity.CstCustomer;
 import com.qf.vo.VCustomer;
+import com.qf.vo.VTable;
+
+import java.util.List;
 
 public interface CstCustomerMapper {
     int deleteByPrimaryKey(Integer id);
@@ -22,4 +23,7 @@ public interface CstCustomerMapper {
     public List<VCustomer> findAll();
     //条件查询
     public List<VCustomer> findByCondition(CstCustomer cstCustomer);
+
+    //客户构成分析（统计报表）
+    public List<VTable> findTable();
 }

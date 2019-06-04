@@ -82,6 +82,7 @@ public class CstServiceImpl implements CstServiceService {
     //分配
     @Override
     public void distribute(Cstservice cstservice) {
+        cstservice.setSvrStatus("已分配");
         cstservice.setSvrDueDate(new Date());
         cstserviceMapper.updateByPrimaryKeySelective(cstservice);
 
@@ -96,6 +97,7 @@ public class CstServiceImpl implements CstServiceService {
     //f服务处理
     @Override
     public void deal(Cstservice cstservice) {
+        cstservice.setSvrStatus("已处理");
         cstservice.setSvrDealDate(new Date());
         System.out.println(cstservice.getSvrDealDate());
         cstserviceMapper.updateByPrimaryKeySelective(cstservice);

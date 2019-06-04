@@ -1,8 +1,8 @@
 package com.qf.service;
 
-import java.util.Map;
-
 import com.qf.entity.CstCustomer;
+
+import java.util.Map;
 
 public interface CustomerService {
 	public Map<String,Object> findAllCus(int page);
@@ -15,4 +15,7 @@ public interface CustomerService {
 	//条件查询
 	public Map<String ,Object> searchByCondition(int page, CstCustomer cstCustomer);
 
+
+	//统计报表
+	public Map<String, Object> searchTable(int page);
 }
