@@ -101,7 +101,8 @@
                             html+='<td><img title="制定计划" src="../../images/pencil.ico" class="op_button" onclick="javascript:make('+this.id+')" /> <img title="执行计划" src="../../images/right.ico" class="op_button" onclick="javascript:exec('+this.id+')" /></td>';
                         }else if(this.status==2){
                             html+='<td>开发中</td>';
-                            html+='<td><img title="制定计划" src="../../images/pencil.ico" class="op_button" onclick="javascript:make('+this.id+')" /> <img title="执行计划" src="../../images/right.ico" class="op_button" onclick="javascript:exec('+this.id+')" /><img title="开发成功" src="../../images/tick.ico" class="op_button" onclick="javascript:makeIt('+this.id+')" /></td>';
+                            // html+='<td><img title="制定计划" src="../../images/pencil.ico" class="op_button" onclick="javascript:make('+this.id+')" /> <img title="执行计划" src="../../images/right.ico" class="op_button" onclick="javascript:exec('+this.id+')" /><img title="开发成功" src="../../images/tick.ico" class="op_button" onclick="javascript:makeIt('+this.id+')" /></td>';
+                            html+='<td><img title="开发成功" src="../../images/tick.ico" class="op_button" onclick="javascript:makeIt('+this.id+')" /></td>';
                         }else if(this.status==3){
                             html+='<td>已归档</td>';
                             html+='<td><img title="已归档" src="../../images/briefcase.ico" class="op_button" /></td>';

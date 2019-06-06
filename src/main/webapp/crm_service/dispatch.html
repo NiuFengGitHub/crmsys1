@@ -121,6 +121,10 @@
                             '        </select>';
                         var id = this.id;
                         // alert(this.id);
+
+                        // alert(this.id);
+                        html+='<a href="javascript:distribute('+this.id+')" title="分配" >分配</a></td>';
+                        html+='<td><a href="javascript:delservice('+this.id+')"><img title="删除" src="../images/cross.png" class="op_button close" /></a></td>';
                         //客户经理加载
                         $.ajax({
                             type:"post",
@@ -138,9 +142,6 @@
                                 }
                             }
                         })
-                        // alert(this.id);
-                        html+='  <a href="javascript:distribute('+this.id+')" title="分配" >分配</a></td>';
-                        html+='<td><a href="javascript:delservice('+this.id+')"><img title="删除" src="../images/cross.png" class="op_button close" /></a></td>';
                         html+='</tr>';
 
                         $("tbody").append($(html));
