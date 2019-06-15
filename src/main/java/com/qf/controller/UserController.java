@@ -45,11 +45,11 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/search.do")
-	public JsonBean search(int page,String usrName,String roleName,Integer usrFlag) {
+	public JsonBean search(int page,String usrName,String roleName,String usrFlag) {
 		System.out.println(usrName);
 		System.out.println(roleName);
 		System.out.println(usrFlag);
-		Map<String, Object> map = userService.findUserByCondition(page, usrName, roleName, usrFlag);
+		Map<String, Object> map = userService.findUserByCondition(page, usrName, roleName, Integer.parseInt(usrFlag));
 		return JsonUtils.createJsonBean(1, map);
 		
 	}

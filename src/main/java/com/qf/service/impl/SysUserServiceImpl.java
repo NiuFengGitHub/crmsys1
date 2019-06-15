@@ -34,7 +34,7 @@ public class SysUserServiceImpl implements SysUserService {
 	public Map<String ,Object> findAllUser(int page) {
 		//mybatis内部会进行分页查询
 		//PageHelper和查询操作之前不要有其他逻辑
-		PageHelper.startPage(page,10);
+		PageHelper.startPage(page,5);
 		//list中存放的是分页后的数据 
 		List<VUser> list = userDao.selectAll();
 		//获取总条数

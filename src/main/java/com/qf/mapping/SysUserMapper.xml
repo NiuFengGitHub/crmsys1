@@ -131,13 +131,13 @@
   	inner join sys_role r
   	on u.usr_role_id = r.role_id
   	<where>
-  		<if test="usrName!=null">
+  		<if test="usrName!=''">
   		and u.usr_name like concat('%',#{usrName},'%')
   		</if>
-  		<if test="roleName!=null">
+  		<if test="roleName!=''">
 	  	 and r.role_name like concat('%',#{roleName},'%') 
   		</if>
-  		<if test="usrFlag!=null">
+  		<if test="usrFlag!=-1">
    		 and u.usr_flag = #{usrFlag}
   		</if>
   	</where>

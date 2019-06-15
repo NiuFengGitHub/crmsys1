@@ -1,202 +1,202 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>客户开发计划列表</title>
-<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
-<link href="../css/style.css" rel="stylesheet" type="text/css" />
-<link href="../css/pagination.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="../js/jquery.js"></script>
-<script type="text/javascript" src="../js/jquery.pagination.js"></script>
-<script type="text/javascript" 	src="../js/simpla.jquery.configuration.js"></script>
-<script type="text/javascript" src="../js/javascript.js"></script>
-<script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>客户开发计划列表</title>
+	<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+	<link href="../css/style.css" rel="stylesheet" type="text/css" />
+	<link href="../css/pagination.css" rel="stylesheet" type="text/css"/>
+	<script type="text/javascript" src="../js/jquery.js"></script>
+	<script type="text/javascript" src="../js/jquery.pagination.js"></script>
+	<script type="text/javascript" 	src="../js/simpla.jquery.configuration.js"></script>
+	<script type="text/javascript" src="../js/javascript.js"></script>
+	<script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
 </head>
 
 <body>
-	<div style="padding: 5px;">
-		<div class="txt" style="padding-top: 3px;">
-			当前位置：系统管理&nbsp;&gt;&nbsp;用户管理
-			<hr class="hr1" />
-		</div>
-		<div class="operation_button">
-			<a href="javascript:search()">查询</a>
-			<a href="importuser.html">导入</a>
-		</div>
-		<div class="search_input">
-			<ul class="txt">
-				<li>用户名： <input type="text" size="30" name="usrName"/>
-				</li>
-				<li>角色： <input type="text" size="30" name="roleName"/>
-				</li>
-				<li>状态：
-				<select id="select">
-				<option >请选择</option>
-				<option value="0">删除</option>
-				<option value="1">正常</option>
-				</select>
-				</li>
-			</ul>
-		</div>
-		<div>
-			<table width="100%" border="0" cellpadding="0" cellspacing="0"
-				class="table_list">
-				<thead>
-					<tr>
-						<th width="10%">编号</th>
-						<th width="20%">用户名称</th>
-						<th width="20%">角色</th>
-						<th width="20%">状态</th>
-						<th width="30%">操作</th>
-					</tr>
-				</thead>
-				<tbody>
-				
-				</tbody>
-			</table>
-		</div>
-		<div class="wrapper">
-			<div class="M-box"></div>
-		</div>
+<div style="padding: 5px;">
+	<div class="txt" style="padding-top: 3px;">
+		当前位置：系统管理&nbsp;&gt;&nbsp;用户管理
+		<hr class="hr1" />
 	</div>
-	
-	<script type="text/javascript">
-		$(function(){
-			loadData(1);
-		})
-	
-		function loadData(page){
-			$.ajax({
-				type:"get",
-				//包含在文件夹之内
-				url:"/crmsys/user/list.do?page="+page,
-				dataType:"json",
-				success:function(data){
-					if(data.code == 1){
-						$("tbody").empty();
-						//当前页数据
-						var total = data.info.total;
-						//Math.ceil向上取整，Math.floor  向下取整
-						var totalPage =Math.ceil(total/10);//向上取整
-						var info=data.info.rows;
-						var pno = page;
-						//总条数
-						var total = data.info.total;
-						$(info).each(function(){
-							var html = '<tr>';
-								html+='		<td>'+this.usrId+'</td>';
-								html+='		<td>'+this.usrName+'</td>';
-								html+='		<td>'+this.roleName+'</td>';
-								if(this.usrFlag == 0){
-									html+='		<td>删除</td>';
-									html+='		<td><a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
-								}else{
-									html+='		<td>正常</td>';
-									html+='		<td><a href="#" onclick="javascript:deleteU('+this.usrId+')">删除</a> <a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
-								}
-								html+='</tr>';
-								$("tbody").append($(html));
-						})
-						//分页设置
-	                      $('.M-box').pagination({  
-	                          pageCount: totalPage,  // 总页数
-	                          current:pno,//当前第几页  
-	                          jump: true,  // 是否显示跳转相关元素
-	                          jumpBtn: 'go', // 跳转按钮显示文字
-	                          coping: true,    //是否显示首页末页
-	                          homePage: '首页',  
-	                          endPage: '末页',  
-	                          prevContent: '<<',  // 上一页功能 显示文字信息
-	                          nextContent: '>>',  
-	                          callback:function(index){  
-	                           	//返回回调函数用到的当前页是根据实际操作计算得到的
-	                        	  loadData(index.getCurrent());//获取当前页  
-	                         } 
-	                      });  
-					}
-				}
-			})
-		}
+	<div class="operation_button">
+		<a href="javascript:search()">查询</a>
+		<a href="importuser.html">导入</a>
+	</div>
+	<div class="search_input">
+		<ul class="txt">
+			<li>用户名： <input type="text" size="30" name="usrName"/>
+			</li>
+			<li>角色： <input type="text" size="30" name="roleName"/>
+			</li>
+			<li>状态：
+				<select id="select">
+					<option value="-1" >请选择</option>
+					<option value="0">删除</option>
+					<option value="1">正常</option>
+				</select>
+			</li>
+		</ul>
+	</div>
+	<div>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0"
+			   class="table_list">
+			<thead>
+			<tr>
+				<th width="10%">编号</th>
+				<th width="20%">用户名称</th>
+				<th width="20%">角色</th>
+				<th width="20%">状态</th>
+				<th width="30%">操作</th>
+			</tr>
+			</thead>
+			<tbody>
 
-	</script>
-	<script type="text/javascript">
-	function deleteU(id){
-		$.ajax({
-			type:"get",
-			url:"/crmsys/user/delete.do?usrId="+id,
-			dataType:"json",
-			success:function(data){
-				if(data.code == 1){
-					alert("删除成功");
-					window.location.reload();
-				}else{
-					alert(data.info);
-				}
-			}
-		})
-		
-	}
-	</script>
-	
-	<script type="text/javascript">
-		function search(){
-			loadInfo(1);
-		}
-		function loadInfo(page1){
-			$.ajax({
-				type:"get",
-				url:"/crmsys/user/search.do?page="+page1,
-				data:{usrName:$("input[name='usrName']").val(),roleName:$("input[name='roleName']").val(),usrFlag:$("#select option:selected").val()},
-				dataType:"json",
-				success:function(data){
-					if(data.code == 1){
-						var total = data.info.total;
-						//Math.ceil向上取整，Math.floor  向下取整
-						var totalPage1 =Math.ceil(total/5);//向上取整s
-						var pno1 = page1;
-						//总条数
-						var infos = data.info.rows;
-						$("tbody").empty();
-						$(infos).each(function(){
-							var html = '<tr>';
-	         					html+='   <td>'+this.usrId+'</td>';
-	         					html+='   <td>'+this.usrName+'</td>';
-	         					html+='   <td>'+this.roleName+'</td>';
-	         					if(this.usrFlag == 0){
-									html+='		<td>删除</td>';
-									html+='		<td><a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
-								}else{
-									html+='		<td>正常</td>';
-									html+='		<td><a href="#" onclick="javascript:deleteU('+this.usrId+')">删除</a> <a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
-								}
-	         					html+='</tr>';
-	         					$("tbody").append($(html));
-	         					
-	      					  //分页设置
-	    	                    $('.M-box').pagination({  
-	    	                        pageCount: totalPage1,  // 总页数
-	    	                        current:pno1,//当前第几页  
-	    	                        jump: true,  // 是否显示跳转相关元素
-	    	                        jumpBtn: 'go', // 跳转按钮显示文字
-	    	                        coping: true,    //是否显示首页末页
-	    	                        homePage: '首页',  
-	    	                        endPage: '末页',  
-	    	                        prevContent: '<<',  // 上一页功能 显示文字信息
-	    	                        nextContent: '>>',  
-	    	                        callback:function(index){  
-	    	                            //$('.now').text(index.getCurrent());  
-	    	                            // 该回调函数用到的当前页是根据实际操作计算得到
-	    	                            loadInfo(index.getCurrent());//获取当前页  
-	    	                       } 
-	    	                    });
-						})	
-					}
-				}
-			})
-			
-		}
+			</tbody>
+		</table>
+	</div>
+	<div class="wrapper">
+		<div class="M-box"></div>
+	</div>
+</div>
 
-	</script>
+<script type="text/javascript">
+    $(function(){
+        loadData(1);
+    })
+
+    function loadData(page){
+        $.ajax({
+            type:"get",
+            //包含在文件夹之内
+            url:"/crmsys/user/list.do?page="+page,
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    $("tbody").empty();
+                    //当前页数据
+                    var total = data.info.total;
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage =Math.ceil(total/5);//向上取整
+                    // alert(total);
+                    // alert(totalPage);
+                    var info=data.info.rows;
+                    var pno = page;
+                    $(info).each(function(){
+                        var html = '<tr>';
+                        html+='		<td>'+this.usrId+'</td>';
+                        html+='		<td>'+this.usrName+'</td>';
+                        html+='		<td>'+this.roleName+'</td>';
+                        if(this.usrFlag == 0){
+                            html+='		<td>删除</td>';
+                            html+='		<td><a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
+                        }else{
+                            html+='		<td>正常</td>';
+                            html+='		<td><a href="#" onclick="javascript:deleteU('+this.usrId+')">删除</a> <a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
+                        }
+                        html+='</tr>';
+                        $("tbody").append($(html));
+                    })
+                    //分页设置
+                    $('.M-box').pagination({
+                        pageCount: totalPage,  // 总页数
+                        current:pno,//当前第几页
+                        jump: true,  // 是否显示跳转相关元素
+                        jumpBtn: 'go', // 跳转按钮显示文字
+                        coping: true,    //是否显示首页末页
+                        homePage: '首页',
+                        endPage: '末页',
+                        prevContent: '<<',  // 上一页功能 显示文字信息
+                        nextContent: '>>',
+                        callback:function(index){
+                            //返回回调函数用到的当前页是根据实际操作计算得到的
+                            loadData(index.getCurrent());//获取当前页
+                        }
+                    });
+                }
+            }
+        })
+    }
+
+</script>
+<script type="text/javascript">
+    function deleteU(id){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/user/delete.do?usrId="+id,
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    alert("删除成功");
+                    window.location.reload();
+                }else{
+                    alert(data.info);
+                }
+            }
+        })
+
+    }
+</script>
+
+<script type="text/javascript">
+    function search(){
+        loadInfo(1);
+    }
+    function loadInfo(page1){
+        $.ajax({
+            type:"get",
+            url:"/crmsys/user/search.do?page="+page1,
+            data:{usrName:$("input[name='usrName']").val(),roleName:$("input[name='roleName']").val(),usrFlag:$("#select option:selected").val()},
+            dataType:"json",
+            success:function(data){
+                if(data.code == 1){
+                    var total = data.info.total;
+                    //Math.ceil向上取整，Math.floor  向下取整
+                    var totalPage1 =Math.ceil(total/5);//向上取整s
+                    var pno1 = page1;
+                    //总条数
+                    var infos = data.info.rows;
+                    $("tbody").empty();
+                    $(infos).each(function(){
+                        var html = '<tr>';
+                        html+='   <td>'+this.usrId+'</td>';
+                        html+='   <td>'+this.usrName+'</td>';
+                        html+='   <td>'+this.roleName+'</td>';
+                        if(this.usrFlag == 0){
+                            html+='		<td>删除</td>';
+                            html+='		<td><a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
+                        }else{
+                            html+='		<td>正常</td>';
+                            html+='		<td><a href="#" onclick="javascript:deleteU('+this.usrId+')">删除</a> <a href="userupdate.html?usrId='+this.usrId+'">更新</a></td>';
+                        }
+                        html+='</tr>';
+                        $("tbody").append($(html));
+
+                        //分页设置
+                        $('.M-box').pagination({
+                            pageCount: totalPage1,  // 总页数
+                            current:pno1,//当前第几页
+                            jump: true,  // 是否显示跳转相关元素
+                            jumpBtn: 'go', // 跳转按钮显示文字
+                            coping: true,    //是否显示首页末页
+                            homePage: '首页',
+                            endPage: '末页',
+                            prevContent: '<<',  // 上一页功能 显示文字信息
+                            nextContent: '>>',
+                            callback:function(index){
+                                //$('.now').text(index.getCurrent());
+                                // 该回调函数用到的当前页是根据实际操作计算得到
+                                loadInfo(index.getCurrent());//获取当前页
+                            }
+                        });
+                    })
+                }
+            }
+        })
+
+    }
+
+</script>
 </body>
 
 </html>

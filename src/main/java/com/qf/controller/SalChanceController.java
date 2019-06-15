@@ -1,19 +1,17 @@
 package com.qf.controller;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.qf.common.JsonBean;
 import com.qf.entity.SalChance;
 import com.qf.service.SalChanceService;
 import com.qf.utils.JsonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
 
 @RestController
 public class SalChanceController {
@@ -30,6 +28,7 @@ public class SalChanceController {
 	public JsonBean add(SalChance salChance) {
 		Date time = new Date();
 		salChance.setChcCreateDate(time);
+		salChance.setChcStatus(1);
 		salChance.setChcFlag(1); 
 		if(salChance.getChcDueId()!=0) {
 			//已经指派

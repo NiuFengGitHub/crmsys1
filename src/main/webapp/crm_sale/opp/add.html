@@ -58,8 +58,8 @@
 						<tr>
 							<td>创建人</td>
 							<td><input type="text" id="loginName" disabled="disabled" /></td>
-							<td>创建时间</td>
-							<td><input type="text" /></td>
+							<!--<td>创建时间</td>-->
+							<!--<td><input type="text" /></td>-->
 						</tr>
 						<tr>
 							<td>指派给</td>
@@ -90,6 +90,7 @@
 			success:function(data){
 				if(data.code==1){
 					alert("添加成功");
+					window.location.href="list.html";
 				}else{
 					alert(data.info);
 				}
